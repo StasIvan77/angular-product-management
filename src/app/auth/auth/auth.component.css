@@ -1,0 +1,20 @@
+.formContainer {
+        display: flex;
+        
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;        
+        margin: 20px;
+  }
+
+  .formWidth{
+    width: 400px;
+  }
+
+  .fieldAlignment {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    width: 100%;
+    text-align: center; 
+  }

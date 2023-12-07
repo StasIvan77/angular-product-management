@@ -1,0 +1,30 @@
+<div class="formContainer">
+    <form class="formWidth" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+        <h1 class="fieldAlignment">{{ isLoginMode ? 'Login' : 'Sign Up'}}</h1>
+        <div role="alert" *ngIf="error" style="color:red" class="fieldAlignment"> {{ error }}</div>
+        <mat-form-field class="fieldAlignment">
+            <mat-label >Enter your email</mat-label>
+            <input matInput name="email" required ngModel > 
+                <mat-error>{{getErrorMessage()}}</mat-error>                        
+        </mat-form-field>
+
+          <!-- password -->
+          <mat-form-field class="fieldAlignment">
+            <mat-label>Enter your password</mat-label>
+            <input matInput name="password" [type]="hide ? 'password' : 'text'"  ngModel required minlength="6">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="fieldAlignment">
+            <button mat-raised-button color="primary" type="submit" [disabled]="!authForm.valid">
+                {{ isLoginMode ? 'Login' : 'Sign Up'}}
+            </button>
+            <button mat-stroked-button color="primary" (click)="onSwitchMode()" type="button">
+                Switch to {{ isLoginMode ? 'Sign Up' : 'Login'}}
+            </button>
+          </div>
+         
+    </form>    
+</div>
+
