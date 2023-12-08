@@ -2,6 +2,16 @@
     flex: 1 1 auto;
   }
 
+  .flexExpand {
+    flex: 1 1 auto;
+}
+
   .buttonStyle {
     margin-right: 15px;
+  }
+
+  a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Use the default text color */
+    
   }

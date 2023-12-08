@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService, AuthResponseData } from './auth.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 
@@ -30,7 +31,7 @@ export class AuthComponent {
   error: string | null = null;
   
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private router: Router){}
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -67,6 +68,7 @@ export class AuthComponent {
     authObs.subscribe(
       resData => {
         console.log(resData);
+        this.router.navigate(['/']);
       },
       errorMessage => {
         console.log(errorMessage);

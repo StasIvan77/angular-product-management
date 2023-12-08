@@ -1,0 +1,22 @@
+
+
+  .tile-content {
+    display: flex;
+    flex-direction: column; /* Display items vertically */
+    align-self: flex-start;
+    align-items: center;
+    margin-top: 10px
+  }
+  
+  .tile-content img {
+    max-height: 150px; /* Ensure the image doesn't exceed the container width */
+  }
+
+
+  .buttonStyle   {
+    margin-left: 20px;
+  }
+
+.tileMargin {
+    margin: 20px;
+}

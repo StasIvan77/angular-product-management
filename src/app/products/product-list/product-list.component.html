@@ -1,0 +1,23 @@
+<p>List commponents</p>
+<div class="buttonStyle">
+    <button mat-raised-button color="primary" class="buttonStyle">Add product</button>
+</div>
+
+    <app-product-item></app-product-item>
+<div class="tileMargin">
+    <mat-grid-list cols="5" rowHeight="4:5" gutterSize="20px">
+        <mat-grid-tile *ngFor="let product of products">
+            <mat-card>
+                <mat-card-content>
+                    <div class="tile-content">
+                        <img [src]="product.imagePath" alt="{{ product.name }}">
+                        <p>{{ product.name }}</p>
+                        <p>{{ product.description }}</p>
+                        <p>{{ product.price }} UAH</p>
+                    </div>
+                </mat-card-content>
+              </mat-card>               
+        </mat-grid-tile>    
+    </mat-grid-list>
+</div>
+    

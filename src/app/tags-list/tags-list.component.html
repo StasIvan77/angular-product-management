@@ -1,0 +1,70 @@
+
+<hr>
+<p>The tag list</p>
+<div>
+    <a>
+        
+    </a>
+</div>
+
+
+<mat-form-field class="chip-list">
+    <mat-label>Your Custom Tags</mat-label>    
+    <mat-chip-grid #chipGrid aria-label="Enter tags" [formControl]="formControl">
+      <mat-chip-row *ngFor="let chip of tags; let i = index"  [style.background]="chip.colorTag"
+      [editable]="true" (edited)="edit(chip, $event)" [aria-description]="'press enter to edit ' + chip.name">
+        {{ chip.name }}
+        <button matChipRemove (click)="removeChip(chip)" aria-label="'remove ' + chip.name">
+            <mat-icon>cancel</mat-icon>
+          </button>        
+      </mat-chip-row>  
+      <input
+        placeholder="Enter a new tag..."
+        [matChipInputFor]="chipGrid"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addChip($event); " 
+      />
+      <button mat-icon-button (click)="openColorPicker()">
+        <mat-icon>palette</mat-icon>
+      </button>
+    </mat-chip-grid>
+  </mat-form-field>
+
+  <input [(colorPicker)]="userInputColor" [style.background]="userInputColor"/>
+
+
+<div>
+
+    <!-- <input matInput [(ngModel)]="userInputColor" placeholder="e.g., #ff0000"> -->
+    <!-- <button mat-raised-button color="primary" (click)="add()">Add Keyword</button> -->
+    <button mat-raised-button disabled color="primary" >Update</button>
+
+  <p>
+  </p>
+</div>
+  
+  <!-- <input [(colorPicker)]="userInputColor" [style.background]="userInputColor" placeholder="Choose color"/> -->
+  
+
+<app-tags-edit></app-tags-edit>
+
+
+        <!-- Bad idea  -->
+<!-- <mat-form-field>
+    <mat-label>Edit tags</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Enter keywords" [formControl]="formControl">
+      <mat-chip-row *ngFor="let keyword of keywords; let i = index" (removed)="removeKeyword(i)" [style.background]="keyword.color">
+        {{ keyword.name }}
+        <button matChipRemove aria-label="'remove ' + keyword.name">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>    
+    <input placeholder="New Tag"
+       [matChipInputFor]="chipGrid"
+       [(ngModel)]="userInputValue"
+       (matChipInputTokenEnd)="add($event)"/>
+   
+
+  </mat-form-field> -->
