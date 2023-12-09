@@ -1,13 +1,16 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { EventEmitter, Injectable, Output } from "@angular/core";
 import { Product } from "./product.model";
 import { Subject } from "rxjs";
+import { Tag } from "../shared/tag.model";
+import { TagsListService } from "../tags-list/tags-list-service";
 
 
 
 @Injectable()
 export class ProductService {
-    productSelected = new EventEmitter<Product>();
+    //productSelected = new EventEmitter<Product>();
     productsChanged = new Subject<Product[]>();
+    @Output() productSelected = new EventEmitter<Product>();
 
     
    private products: Product[] = [
@@ -44,6 +47,10 @@ export class ProductService {
                         550, [{name: 'Yellow', colorTag: '#FFD700'}, {name: 'Green', colorTag: '#00FF00'}])
       ];
 
+      constructor(private tagService: TagsListService){
+
+      }
+
       getProducts() {
         return this.products.slice();
       }
@@ -53,5 +60,9 @@ export class ProductService {
         console.log(this.products);
         console.log(this.productsChanged);
         this.productsChanged.next(this.products.slice());
+      }
+
+      addAllTagsToTagsManager(tags: Tag[]){
+        this.tagService.addTags(tags);      
       }
 }

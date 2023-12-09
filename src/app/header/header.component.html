@@ -2,10 +2,10 @@
     <button mat-button class="buttonStyle" [routerLink]="['/']">
         <span><a>Products</a></span>
     </button>
-    <button mat-button class="buttonStyle" *ngIf="!isAuthenticated" [routerLink]="['/authentication']">
+    <button mat-button class="buttonStyle" *ngIf="isAuthenticated" [routerLink]="['/']">
         <span><a >Authenticate</a></span>
     </button>
-    <button mat-stroked-button class="buttonStyle" *ngIf="isAuthenticated">
+    <button mat-stroked-button class="buttonStyle" *ngIf="!isAuthenticated" (click)="manageAllTags()">
         <span>Tags manage</span>
     </button>
     <button mat-button class="buttonStyle" [routerLink]="['/']" (click)="onSaveData()">

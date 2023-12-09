@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ColorPickerDirective, ColorPickerModule } from 'ngx-color-picker';
 import { Tag } from '../shared/tag.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { TagsListService } from './tags-list-service';
 
 
 
@@ -38,11 +39,26 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
   providers: []
 })
 export class TagsListComponent {
-
   @ViewChild(ColorPickerDirective) colorPicker: ColorPickerDirective | undefined;
+  @Output() tagAdded = new EventEmitter<Event> ();
+
   formControl = new FormControl();
   userInputValue: string = '';
   userInputColor: string = '#ffffff';
+
+  tags: Tag[] = [];
+
+  constructor(private tagService: TagsListService ) {
+
+  }
+
+  ngOnInit(){
+    this.tags = this.tagService.getTags();
+    this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
+      tags = this.tags;
+      console.log('My actual tags list:', this.tags);
+    })
+  }
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -54,13 +70,16 @@ export class TagsListComponent {
       this.colorPicker.openDialog(); // Open the color picker dialog
     }
   }
-  addChip(event: MatChipInputEvent): void {
+  addTag(event: MatChipInputEvent): void {
     //this.openColorPicker();
     const value = this.userInputValue !== null && this.userInputValue !== undefined ?  event.value : 'New Tag';
     console.log(event.value);
     if (value != '') {
      event.chipInput!.clear();
     } 
+    if (this.userInputColor == ''){
+      this.userInputColor = '#ffffff';
+    }
     
       // Add our keyword
       console.log('color:'+ this.userInputColor);
@@ -69,12 +88,14 @@ export class TagsListComponent {
           event.chipInput!.clear();
         } else {
           
-          this.tags.push({ name: value, colorTag: this.userInputColor });
-  
+          this.tags.push(new Tag(value, this.userInputColor));
+          this.tagService.tagsUpdated();
+          // It's updating tags without this:
+          // const newTag = new Tag(value, this.userInputColor);
+          // //this.tagAdded.emit(newTag);
+          // this.onTagAdded(event);
+          // console.log('newTag' + newTag.name);
         }
-        // Add the new keyword to the array
-        console.log(value);
-        console.log(this.userInputColor);
         
   
         this.formControl.setValue(this.tags.map(tags => tags.name)); // Update the form control value
@@ -139,14 +160,17 @@ export class TagsListComponent {
 
   colorSelected(color: string): void {
     this.userInputColor = color;
-    console.log(this.userInputColor);
   }
+
+  // No need for this
+  // onTagAdded(event: MatChipInputEvent){
+  //   console.log('Event type:', typeof event);
+  //     //this.tags.push(event);
+  //     console.log(this.tags);
+  // }
   
 
-  tags: Tag[] = [
-    new Tag('Yellow','#FFD700' ),
-    new Tag('Green','#00FF00' ),    
-  ];
+  
 
   // Logic for a tags
   // addOnBlur = true;

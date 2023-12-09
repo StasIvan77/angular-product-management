@@ -16,6 +16,7 @@ import { ProductsComponent } from './products/products.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from './products/product.service';
 import { ProductsResolverService } from './products/products-resolver.service';
+import { TagsListService } from './tags-list/tags-list-service';
 
 
 
@@ -45,7 +46,7 @@ const appRoutes: Routes =[
     TagsListComponent,
   ],
   exports: [RouterModule],
-  providers: [ProductService],
+  providers: [ProductService, TagsListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

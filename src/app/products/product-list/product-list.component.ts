@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../product.model';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
@@ -30,12 +30,10 @@ import { MatChipsModule } from '@angular/material/chips';
   
 })
 export class ProductListComponent implements OnInit {
-  @Output() productSelected = new EventEmitter<Product>();
-  @Output() productWasSelected = new EventEmitter<Product>();
-
+  @Input() product?: Product;
   cols?: number;
   
-  products: Product[] = this.productService.getProducts();
+  products: Product[] = [];
 
   constructor(private productService: ProductService ) {
     this.calculateCols(window.innerWidth)
@@ -65,7 +63,7 @@ export class ProductListComponent implements OnInit {
   }
 
   OnSelected(product: Product) {    
-      this.productSelected.emit(product);
+      this.productService.productSelected.emit(product);
   }
 
  

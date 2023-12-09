@@ -13,9 +13,9 @@
 <!-- Functionality for disable a form
 <button mat-raised-button (click)="formControl.disable()">Disable form control</button> -->
 
-<mat-form-field class="chip-list">    
+<mat-form-field class="chip-list" >    
     <mat-label>Your Custom Tags</mat-label>  
-    <mat-chip-grid #chipGrid aria-label="Enter tags" [formControl]="formControl">
+    <mat-chip-grid  #chipGrid aria-label="Enter tags" [formControl]="formControl" >
       <mat-chip-row *ngFor="let chip of tags; let i = index"  [style.background]="chip.colorTag"
       [editable]="true" (edited)="edit(chip, $event)" [aria-description]="'press enter to edit ' + chip.name">
         {{ chip.name }}
@@ -23,12 +23,14 @@
             <mat-icon>cancel</mat-icon>
           </button>        
       </mat-chip-row>  
-      <input
+      <input 
         placeholder="Enter a new tag..."
         [matChipInputFor]="chipGrid"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         [matChipInputAddOnBlur]="addOnBlur"
-        (matChipInputTokenEnd)="addChip($event); " 
+        (matChipInputTokenEnd)="addTag($event);" 
+        
+        
       />      
     </mat-chip-grid>
   </mat-form-field>

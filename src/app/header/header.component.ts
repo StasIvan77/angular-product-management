@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -8,6 +8,9 @@ import { AuthService } from '../auth/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DataStorageService } from '../shared/data-storage.service';
+import { ProductService } from '../products/product.service';
+import { Product } from '../products/product.model';
+import { Tag } from '../shared/tag.model';
 
 
 @Component({
@@ -19,16 +22,19 @@ import { DataStorageService } from '../shared/data-storage.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Output() featureSelected = new EventEmitter<string>();
+  @Input() products: Product[] = [];
 
   isAuthenticated = false;
   private userSub!: Subscription;
 
 
-  constructor(private authService: AuthService, private dataStorageService: DataStorageService){
+  constructor(private authService: AuthService, private dataStorageService: DataStorageService, private productService: ProductService){
 
   }
 
   ngOnInit() {
+    this.products = this.productService.getProducts();
+
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
     });
@@ -50,4 +56,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.featureSelected.emit(feature);
   }
 
+
+  manageAllTags(){
+
+    this.products.map(product =>  product.tags.forEach(tag => {
+      console.log(`  Tag Name: ${tag.name}, Color: ${tag.colorTag}`);
+  }));
+    
+   
+   // console.log('My all tags: ', tagsFromProducts);
+   
+     // this.productService.addAllTagsToTagsManager(tagsFromProducts);
+    }
 }
