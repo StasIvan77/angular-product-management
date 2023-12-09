@@ -2,18 +2,30 @@
     <img src="" alt="" class="img-responsive">
 </div>
 <div>
-    <h1>Product Name</h1>
+    <h1> {{ product?.name }} </h1>
+    <div>
+        <p>{{ product?.price }}</p>
+    </div>
+    <div>
+        <img mat-card-image class="tile-image" src="{{product?.imagePath}}" alt="{{ product?.name }}">
+    </div>
+</div>
+
+<div>
+    <p>{{ product?.description }}</p>
+</div>
+
+<div>
+    <div class="tags-content" *ngFor="let chip of product?.tags; let i = index">
+        <mat-chip [style.background]="chip?.colorTag">
+            {{ chip?.name }}
+        </mat-chip>
+    </div>
 </div>
 <div>
     <button mat-flat-button color="accent" [matMenuTriggerFor]="menu">Manage<mat-icon>create</mat-icon></button>
     <mat-menu #menu="matMenu">        
         <button mat-menu-item href="#">Edit</button>
         <button mat-menu-item href="#">Delete</button>
-      </mat-menu>
-</div>
-<div>
-    <p>Description</p>
-</div>
-<div>
-    <p>Price</p>
+      </mat-menu>      
 </div>

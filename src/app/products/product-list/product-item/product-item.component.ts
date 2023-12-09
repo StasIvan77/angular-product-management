@@ -9,7 +9,6 @@ import { ProductService } from '../../product.service';
   standalone: true
 })
 export class ProductItemComponent implements OnInit {
-  //@Input() product!: Product;
 
   constructor(private productService: ProductService) {
 

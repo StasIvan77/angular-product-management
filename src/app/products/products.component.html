@@ -1,1 +1,5 @@
-<app-product-list></app-product-list>
+<app-product-list (productSelected)="selectedProduct = $event"></app-product-list>
+
+<app-product-detail *ngIf="selectedProduct"
+[product]="selectedProduct"></app-product-detail>
+<ng-template #infoText>Select product</ng-template>

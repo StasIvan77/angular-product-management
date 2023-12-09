@@ -8,6 +8,12 @@
     <button mat-stroked-button class="buttonStyle" *ngIf="isAuthenticated">
         <span>Tags manage</span>
     </button>
+    <button mat-button class="buttonStyle" [routerLink]="['/']" (click)="onSaveData()">
+        <span><a >Save products</a></span>
+    </button>
+    <button mat-button class="buttonStyle" [routerLink]="['/']" (click)="onFetchProducts()">
+        <span><a >Fetch products</a></span>
+    </button>
     <span class="flexExpand"></span>
     <div>
         <a mat-button [routerLink]="'/logout'" *ngIf="isAuthenticated"> Logout </a>

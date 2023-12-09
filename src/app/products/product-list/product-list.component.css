@@ -8,6 +8,13 @@
     margin-top: 10px
   }
   
+  .tags-content {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+  }
+  
+
   .tile-content img {
     max-height: 150px; /* Ensure the image doesn't exceed the container width */
   }
@@ -20,3 +27,17 @@
 .tileMargin {
     margin: 20px;
 }
+
+.tile-image {
+    align-self: center;
+    width: 50%;
+    border-radius: 10px;
+    border: 2px solid black;
+  }
+
+  .card {
+    background-color: #9fa8da;
+    border-radius: 20px;
+
+    width: 400px;
+  }

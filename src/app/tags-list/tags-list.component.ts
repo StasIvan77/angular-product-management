@@ -6,15 +6,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 
-import { TagsEditComponent } from './tags-edit/tags-edit.component';
 import { CommonModule } from '@angular/common';
 import { ColorPickerDirective, ColorPickerModule } from 'ngx-color-picker';
 import { Tag } from '../shared/tag.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
-export interface Fruit {
-  name: string;
-}
 
 
 
@@ -30,7 +26,6 @@ export interface Fruit {
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    TagsEditComponent,
     CommonModule,
     ColorPickerModule,
     MatFormFieldModule,
@@ -49,10 +44,8 @@ export class TagsListComponent {
   userInputValue: string = '';
   userInputColor: string = '#ffffff';
 
-  @Output() chipAdded = new EventEmitter<{ label: string; color: string }>();
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  fruits: Fruit[] = [{name: 'Lemon'}, {name: 'Lime'}, {name: 'Apple'}];
 
   announcer = inject(LiveAnnouncer);
 

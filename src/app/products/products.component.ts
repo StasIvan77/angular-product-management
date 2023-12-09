@@ -7,6 +7,8 @@ import { Product } from './product.model';
 import { ProductService } from './product.service';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductItemComponent } from './product-list/product-item/product-item.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +21,9 @@ import { ProductItemComponent } from './product-list/product-item/product-item.c
     MatIconModule, 
     ProductModule,
     ProductListComponent, 
-    ProductItemComponent],
+    ProductItemComponent, 
+    ProductDetailComponent,
+    CommonModule],
   providers: [ProductService]
 
 })

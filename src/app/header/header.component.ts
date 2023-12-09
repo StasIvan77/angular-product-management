@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../auth/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { DataStorageService } from '../shared/data-storage.service';
 
 
 @Component({
@@ -17,10 +18,13 @@ import { CommonModule } from '@angular/common';
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterModule, CommonModule],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @Output() featureSelected = new EventEmitter<string>();
+
   isAuthenticated = false;
   private userSub!: Subscription;
 
-  constructor(private authService: AuthService){
+
+  constructor(private authService: AuthService, private dataStorageService: DataStorageService){
 
   }
 
@@ -32,6 +36,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+  }
+
+  onSaveData() {
+    this.dataStorageService.storeProducts();
+  }
+
+  onFetchProducts(){
+    this.dataStorageService.fetchProducts().subscribe();
+  }
+
+  onSelect(feature: string) {
+    this.featureSelected.emit(feature);
   }
 
 }
