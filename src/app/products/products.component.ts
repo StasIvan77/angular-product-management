@@ -28,16 +28,28 @@ import { CommonModule } from '@angular/common';
 
 })
 export class ProductsComponent implements OnInit {  
-  selectedProduct?: Product;
+  selectedProduct: Product | null = null;
+  productSelected: Product | null = null;
+  showProductList = true;
   products: Product[] = [];
+
+
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
+
+    
     this.products = this.productService.getProducts();
 
     this.productService.productSelected.subscribe((product: Product) => {
       this.selectedProduct = product;
     });
   }
+
+  onProductSelected(product: Product): void {
+    this.selectedProduct = product;    
+  }
+
+  
 
 }

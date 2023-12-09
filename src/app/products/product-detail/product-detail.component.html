@@ -2,21 +2,22 @@
     <img src="" alt="" class="img-responsive">
 </div>
 <div>
-    <h1> {{ product?.name }} </h1>
+
+    <h1 > Name {{ selectedProduct?.name }} </h1>
     <div>
-        <p>{{ product?.price }}</p>
+        <p>{{ selectedProduct?.price }}</p>
     </div>
     <div>
-        <img mat-card-image class="tile-image" src="{{product?.imagePath}}" alt="{{ product?.name }}">
+        <img mat-card-image class="tile-image" src="{{selectedProduct?.imagePath}}" alt="{{ selectedProduct?.name }}">
     </div>
 </div>
 
 <div>
-    <p>{{ product?.description }}</p>
+    <p>{{ selectedProduct?.description }}</p>
 </div>
 
 <div>
-    <div class="tags-content" *ngFor="let chip of product?.tags; let i = index">
+    <div class="tags-content" *ngFor="let chip of selectedProduct?.tags; let i = index">
         <mat-chip [style.background]="chip?.colorTag">
             {{ chip?.name }}
         </mat-chip>
@@ -28,4 +29,6 @@
         <button mat-menu-item href="#">Edit</button>
         <button mat-menu-item href="#">Delete</button>
       </mat-menu>      
+    <button mat-raised-button color="basic" [routerLink]="['/products']">Back</button>
+
 </div>

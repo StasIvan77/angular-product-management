@@ -15,3 +15,7 @@
     color: inherit; /* Use the default text color */
     
   }
+
+  .active-button {
+    background-color:silver;
+  }

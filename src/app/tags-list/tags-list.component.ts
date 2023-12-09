@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild, inject} from '@angular/core';
+import {Component, EventEmitter, Injectable, Output, ViewChild, inject} from '@angular/core';
 import {AbstractControl, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { ColorPickerDirective, ColorPickerModule } from 'ngx-color-picker';
 import { Tag } from '../shared/tag.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { TagsListService } from './tags-list-service';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -33,11 +34,13 @@ import { TagsListService } from './tags-list-service';
     MatChipsModule,
     MatIconModule,    
     ReactiveFormsModule,
-    
+    RouterModule, 
     
   ],
   providers: []
 })
+
+
 export class TagsListComponent {
   @ViewChild(ColorPickerDirective) colorPicker: ColorPickerDirective | undefined;
   @Output() tagAdded = new EventEmitter<Event> ();
@@ -97,7 +100,7 @@ export class TagsListComponent {
           // console.log('newTag' + newTag.name);
         }
         
-  
+        
         this.formControl.setValue(this.tags.map(tags => tags.name)); // Update the form control value
         this.userInputColor = ''; // Clear the input field after adding
         this.userInputValue = '';     
@@ -156,11 +159,13 @@ export class TagsListComponent {
   }
 
 
- 
+  
 
   colorSelected(color: string): void {
     this.userInputColor = color;
   }
+  
+}
 
   // No need for this
   // onTagAdded(event: MatChipInputEvent){
@@ -269,5 +274,3 @@ export class TagsListComponent {
   //      }
   //   }
   
-  
-}

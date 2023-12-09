@@ -1,6 +1,5 @@
 
-<hr>
-<p>The tag list</p>
+
 <div>
    <p [(colorPicker)]="userInputColor">
     Choose <span style="font-weight: bold;">color</span> of the Tag
@@ -16,7 +15,7 @@
 <mat-form-field class="chip-list" >    
     <mat-label>Your Custom Tags</mat-label>  
     <mat-chip-grid  #chipGrid aria-label="Enter tags" [formControl]="formControl" >
-      <mat-chip-row *ngFor="let chip of tags; let i = index"  [style.background]="chip.colorTag"
+      <mat-chip-row *ngFor="let chip of tags; let i = index;"  [style.background]="chip.colorTag"
       [editable]="true" (edited)="edit(chip, $event)" [aria-description]="'press enter to edit ' + chip.name">
         {{ chip.name }}
         <button matChipRemove (click)="removeChip(chip)" aria-label="'remove ' + chip.name">
@@ -41,7 +40,9 @@
 
     <!-- <input matInput [(ngModel)]="userInputColor" placeholder="e.g., #ff0000"> -->
     <!-- <button mat-raised-button color="primary" (click)="add()">Add Keyword</button> -->
-    <button mat-raised-button disabled color="primary" >Update</button>
+    <button mat-raised-button color="primary" >Update</button>
+    <button mat-raised-button color="basic" [routerLink]="['/products']">Back</button>
+
 
   <p>
   </p>

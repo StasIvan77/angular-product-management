@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from './products/product.service';
 import { ProductsResolverService } from './products/products-resolver.service';
 import { TagsListService } from './tags-list/tags-list-service';
+import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -44,9 +45,10 @@ const appRoutes: Routes =[
     RouterModule.forRoot(appRoutes),
     ProductDetailComponent,
     TagsListComponent,
+    AppRoutingModule
   ],
   exports: [RouterModule],
-  providers: [ProductService, TagsListService],
+  providers: [ProductService, TagsListService, ProductListComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

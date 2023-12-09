@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Injectable, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../product.model';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
@@ -9,6 +9,9 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ProductDetailComponent } from '../product-detail/product-detail.component';
+import { Subject } from 'rxjs';
 
 
 
@@ -24,18 +27,27 @@ import { MatChipsModule } from '@angular/material/chips';
     ProductItemComponent,
     MatGridListModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    RouterModule,
+    ProductDetailComponent,
+    
+    
     
   ]
   
 })
+
 export class ProductListComponent implements OnInit {
   @Input() product?: Product;
+  @Output() products: Product[] = [];
   cols?: number;
-  
-  products: Product[] = [];
+  indexOfSelectedProduct: number = 0;
+  selectedProduct: boolean = true;
+  isDetailsRoute: boolean = false;
 
-  constructor(private productService: ProductService ) {
+  
+
+  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) {
     this.calculateCols(window.innerWidth)
   }
 
@@ -60,11 +72,31 @@ export class ProductListComponent implements OnInit {
   }
   ngOnInit() {
     this.products = this.productService.getProducts();
+    
   }
 
-  OnSelected(product: Product) {    
+  OnSelected(product: Product) {  
+    this.isDetailsRoute = true;
+    this.indexOfSelectedProduct = this.products.indexOf(product);
+    console.log('My index is:', this.products.indexOf(product));
+      //console.log(this.productService.productSelected.emit(product););
+      //this.productDetailComponent.moveProductToDetail();
       this.productService.productSelected.emit(product);
+      this.productService.setSelectedProduct(product);
+      
+      console.log('My product before go to new page', product);
+      //this.redirectToDetails(product);
+
+   
+      //this.router.navigate(['/details', (this.products.indexOf(product) + 1)]);
+      
   }
+
+  getSelectedProduct(product: Product){
+    console.log('This selected product:', product);
+    return product;
+  };
+  
 
  
 }

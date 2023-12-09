@@ -3,7 +3,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AuthComponent } from '../auth/auth/auth.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -28,10 +28,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
 
 
-  constructor(private authService: AuthService, private dataStorageService: DataStorageService, private productService: ProductService){
+  constructor(private authService: AuthService, private dataStorageService: DataStorageService, private productService: ProductService, private router: Router){
 
   }
-
+  
+  isActive(route: string): boolean {
+    return this.router.isActive(route, false); // Set the 'exact' parameter to 'false'
+  }
   ngOnInit() {
     this.products = this.productService.getProducts();
 
@@ -58,14 +61,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   manageAllTags(){
-
-    this.products.map(product =>  product.tags.forEach(tag => {
-      console.log(`  Tag Name: ${tag.name}, Color: ${tag.colorTag}`);
-  }));
     
-   
-   // console.log('My all tags: ', tagsFromProducts);
-   
-     // this.productService.addAllTagsToTagsManager(tagsFromProducts);
+    //const tagsFromProducts: Tag[] = this.products.map(product => product.tags[0]);
+    //    console.log('My all tags: ', tagsFromProducts);
+
+    const allTags: Tag[] = [];
+    this.products.map(product =>  product.tags.forEach(tag => {
+      const existingTag = allTags.find(t => t.name === tag.name);
+
+        // If not found, add it to the array
+        if (!existingTag) {
+            allTags.push(new Tag(tag.name, tag.colorTag));
+        }
+  }));
+  console.log('My all tags: ', allTags);
+      this.productService.addAllTagsToTagsManager(allTags);
     }
 }

@@ -1,11 +1,17 @@
 <mat-toolbar>
-    <button mat-button class="buttonStyle" [routerLink]="['/']">
+    
+    <button mat-button class="buttonStyle" [routerLink]="['/products']" [ngClass]="{ 'active-button': isActive('/products')}">
         <span><a>Products</a></span>
     </button>
-    <button mat-button class="buttonStyle" *ngIf="isAuthenticated" [routerLink]="['/']">
+    <button mat-button class="buttonStyle" *ngIf="!isAuthenticated" [routerLink]="['/authentication']"  [ngClass]="{ 'active-button': isActive('/authentication')}">
         <span><a >Authenticate</a></span>
     </button>
-    <button mat-stroked-button class="buttonStyle" *ngIf="!isAuthenticated" (click)="manageAllTags()">
+
+    <button mat-button class="buttonStyle" *ngIf="!isAuthenticated" [routerLink]="['/details/1']"  [ngClass]="{ 'active-button': isActive('/details/1')}">
+        <span><a >Details TEMP 1el</a></span>
+    </button>
+
+    <button mat-stroked-button class="buttonStyle" *ngIf="!isAuthenticated" [routerLink]="['/tags-manage']" (click)="manageAllTags()" [ngClass]="{ 'active-button': isActive('/tags-manage')}">
         <span>Tags manage</span>
     </button>
     <button mat-button class="buttonStyle" [routerLink]="['/']" (click)="onSaveData()">
@@ -16,7 +22,7 @@
     </button>
     <span class="flexExpand"></span>
     <div>
-        <a mat-button [routerLink]="'/logout'" *ngIf="isAuthenticated"> Logout </a>
+        <a mat-button [routerLink]="'/authentication'" *ngIf="isAuthenticated"> Logout </a>
     </div>
    
 </mat-toolbar>

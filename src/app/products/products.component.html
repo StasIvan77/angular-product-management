@@ -1,5 +1,3 @@
-<app-product-list (productSelected)="selectedProduct"></app-product-list>
+<app-product-list (productSelected)="selectedProduct" ></app-product-list>
+<app-product-detail></app-product-detail>
 
-<app-product-detail *ngIf="selectedProduct"
-[product]="selectedProduct"></app-product-detail>
-<ng-template #infoText>Select product</ng-template>
