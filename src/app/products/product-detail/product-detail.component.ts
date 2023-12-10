@@ -40,7 +40,7 @@ export class ProductDetailComponent {
 
     xObs.subscribe(
       (resData: any) => {
-        console.log(resData, '99999999!!!!!!!!!!!!!!!!!!!!!!!!!');
+        console.log(resData, ':details of a product');
         this.products = resData['-NlJ6Rio4nKjkJ8yZIUO'];
         const productForDetail = this.products.filter((p) => p && p.id.toString() === pId);
       this.productService.productSelected$.subscribe((product: Product | null) => {

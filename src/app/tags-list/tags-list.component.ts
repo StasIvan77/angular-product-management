@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Injectable, Output, ViewChild, inject} from '@angular/core';
-import {AbstractControl, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component, EventEmitter, Output, ViewChild, inject} from '@angular/core';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -31,15 +31,13 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     ColorPickerModule,
     MatFormFieldModule,
-    MatChipsModule,
-    MatIconModule,    
+    MatChipsModule,      
     ReactiveFormsModule,
     RouterModule, 
     
-  ],
-  providers: []
-})
+  ]
 
+})
 
 export class TagsListComponent {
   @ViewChild(ColorPickerDirective) colorPicker: ColorPickerDirective | undefined;
@@ -109,13 +107,7 @@ export class TagsListComponent {
       // Clear the input value
       if (event) {
         event.chipInput!.clear();
-         }
-  
-  
-  
-  
-  
-  
+         }  
   }
 
   removeChip(tag: Tag): void {
@@ -127,11 +119,8 @@ export class TagsListComponent {
       this.announcer.announce(`Removed ${tag}`);
     }    
   }
-
-
     //є баг з кольорами коли апдейтити
-   edit(tag: Tag, event: MatChipEditedEvent) {
-    
+   edit(tag: Tag, event: MatChipEditedEvent) {    
 
     const value = event.value.trim();
     
@@ -158,119 +147,8 @@ export class TagsListComponent {
     this.userInputValue = ''; 
   }
 
-
-  
-
   colorSelected(color: string): void {
     this.userInputColor = color;
-  }
-  
+  }  
 }
-
-  // No need for this
-  // onTagAdded(event: MatChipInputEvent){
-  //   console.log('Event type:', typeof event);
-  //     //this.tags.push(event);
-  //     console.log(this.tags);
-  // }
-  
-
-  
-
-  // Logic for a tags
-  // addOnBlur = true;
-  // readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  // fruits: Fruit[] = [{name: 'Lemon'}, {name: 'Lime'}, {name: 'Apple'}];
-
-  // announcer = inject(LiveAnnouncer);
-
-  // add(event: MatChipInputEvent): void {
-  //   const value = (event.value || '').trim();
-
-  //   // Add our fruit
-  //   if (value) {
-  //     this.fruits.push({name: value});
-  //   }
-
-  //   // Clear the input value
-  //   event.chipInput!.clear();
-  // }
-
-  // remove(fruit: Fruit): void {
-  //   const index = this.fruits.indexOf(fruit);
-
-  //   if (index >= 0) {
-  //     this.fruits.splice(index, 1);
-
-  //     this.announcer.announce(`Removed ${fruit}`);
-  //   }
-  // }
-
-  // edit(fruit: Fruit, event: MatChipEditedEvent) {
-  //   const value = event.value.trim();
-
-  //   // Remove fruit if it no longer has a name
-  //   if (!value) {
-  //     this.remove(fruit);
-  //     return;
-  //   }
-
-  //   // Edit existing fruit
-  //   const index = this.fruits.indexOf(fruit);
-  //   if (index >= 0) {
-  //     this.fruits[index].name = value;
-  //   }
-  // }
-
-
-  //FIRST SOLUTION
-  // userInputColor = '';
-  // userInputValue: string = '';  
-
-
-
-
-
-  // keywords: { name: string; color: string }[] = [
-  //   { name: 'Keyword1', color: 'red' },
-  //   { name: 'Keyword2', color: 'blue' },
-  //   // ... other keywords
-  // ];  formControl = new FormControl(['angular']);
-
-  // announcer = inject(LiveAnnouncer);
-  
-  // removeKeyword(index: number): void {
-  //   this.keywords.splice(index, 1);
-  //   this.formControl.setValue(this.keywords.map(keyword => keyword.name)); // Update the form control value
-  // }
-  // add(event?: MatChipInputEvent): void {
-    
-    
-  //   const value = this.userInputValue !== null && this.userInputValue !== undefined ? this.userInputValue : 'New Tag';
-
-  //   // Add our keyword
-  //   let color = this.userInputColor;
-  
-  //     if(value == '') {
-  //       this.keywords.push({ name: 'New Tag', color: color });
-
-  //     } else {
-  //       this.keywords.push({ name: value, color: color });
-
-  //     }
-  //     // Add the new keyword to the array
-  //     console.log(value);
-  //     console.log(color);
-      
-
-  //     this.formControl.setValue(this.keywords.map(keyword => keyword.name)); // Update the form control value
-  //     this.userInputColor = ''; // Clear the input field after adding
-  //     this.userInputValue = '';      
-    
-
-  //   // Clear the input value
-  //   if (event) {
-  //     event.chipInput!.clear();
-  //      }
-  //   }
-  
+ 

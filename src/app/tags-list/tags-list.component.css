@@ -1,3 +1,71 @@
   .chip-list {
     width: 100%;
   }
+
+  .container {
+    margin: 20px;
+  }
+  .containerTags {
+    gap: 20px;
+    display: flex;
+  }
+
+  .first-div {
+    flex: 1;
+    flex-direction: column; 
+    display: flex;   
+    
+    size: 100px;
+  }
+
+  .mat-icon-button-style{
+    width: 150px;
+    height: 150px;
+  }
+
+  .mat-icon-style{
+    transform: scale(3);
+    height: 20px;
+    padding:  20px;
+  }
+
+  .second-div {
+    flex: 9;
+    
+  }
+
+  .mat-styles {
+    height: 180px;
+    width: 400px;
+    border-radius: 25px;
+    
+  }
+
+  .buttonStyle {
+    margin-bottom: 20px;
+  }
+
+  .styleOfColor{
+    height: 20px;
+    border: 1px solid #ccc; /* Товщина та колір бордера */
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px; 
+    width: 120px;   
+    cursor: pointer;
+   
+  }
+  .styleOfColor::placeholder {
+   
+    text-align: center;
+    display: none;
+    color: black;
+    padding: 10px; /* Задайте відступи */
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    
+  }

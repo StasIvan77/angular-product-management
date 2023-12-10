@@ -9,11 +9,9 @@ import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth/auth.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TagsListComponent } from './tags-list/tags-list.component';
-import { ProductItemComponent } from './products/product-list/product-item/product-item.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductsComponent } from './products/products.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from './products/product.service';
 import { ProductsResolverService } from './products/products-resolver.service';
 import { TagsListService } from './tags-list/tags-list-service';
@@ -28,11 +26,7 @@ const appRoutes: Routes =[
 
 @NgModule({
   declarations: [
-    AppComponent
-    
-       
-    
-         
+    AppComponent         
   ],
   imports: [
     BrowserModule,
@@ -48,8 +42,17 @@ const appRoutes: Routes =[
     TagsListComponent,
     AppRoutingModule
   ],
-  exports: [RouterModule],
-  providers: [ProductService, TagsListService, DataStorageService],
-  bootstrap: [AppComponent]
+  exports: [
+    RouterModule
+  ],
+  providers: [
+    ProductService,
+    TagsListService,
+    DataStorageService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
+
 export class AppModule { }
