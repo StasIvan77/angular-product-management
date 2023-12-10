@@ -12,6 +12,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { Subject } from 'rxjs';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 
 
@@ -30,9 +31,6 @@ import { Subject } from 'rxjs';
     MatChipsModule,
     RouterModule,
     ProductDetailComponent,
-    
-    
-    
   ]
   
 })
@@ -47,7 +45,9 @@ export class ProductListComponent implements OnInit {
 
   
 
-  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) {
+  constructor(private productService: ProductService, private router: Router,  private dataStorageService: DataStorageService) {
+        // this.productService.onFetchProducts();
+
     this.calculateCols(window.innerWidth)
   }
 
@@ -71,7 +71,19 @@ export class ProductListComponent implements OnInit {
     }
   }
   ngOnInit() {
-    this.products = this.productService.getProducts();
+    const xObs = this.productService.onFetchProducts();
+
+    xObs.subscribe(
+      (resData: any) => {
+        // console.log(resData, '!!!!!!!!!!!!!!!!!!!!!!!!!');
+        this.products = resData['-NlJ6Rio4nKjkJ8yZIUO'].filter((p: Product) => !!p);
+    // this.productService.getProducts(resData);
+
+      },
+      errorMessage => {
+        console.log(errorMessage, '2233333333');
+      }
+    );
     
   }
 
@@ -79,16 +91,18 @@ export class ProductListComponent implements OnInit {
     this.isDetailsRoute = true;
     this.indexOfSelectedProduct = this.products.indexOf(product);
     console.log('My index is:', this.products.indexOf(product));
-      //console.log(this.productService.productSelected.emit(product););
+      console.log(this.productService.productSelected.emit(product));
       //this.productDetailComponent.moveProductToDetail();
       this.productService.productSelected.emit(product);
       this.productService.setSelectedProduct(product);
+      let ccc;
+      this.productService.getSelectedProduct().forEach( p => ccc = p, );
       
-      console.log('My product before go to new page', product);
+      console.log('My product before go to new page', product, 'ccc', ccc);
       //this.redirectToDetails(product);
 
    
-      //this.router.navigate(['/details', (this.products.indexOf(product) + 1)]);
+      this.router.navigate([`/details/${product.id}`]);
       
   }
 

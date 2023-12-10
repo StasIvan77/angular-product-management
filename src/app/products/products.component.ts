@@ -39,7 +39,8 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
 
     
-    this.products = this.productService.getProducts();
+    // this.products = this.productService.getProducts();
+    // this.products = this.data
 
     this.productService.productSelected.subscribe((product: Product) => {
       this.selectedProduct = product;
@@ -49,6 +50,7 @@ export class ProductsComponent implements OnInit {
   onProductSelected(product: Product): void {
     this.selectedProduct = product;    
   }
+
 
   
 

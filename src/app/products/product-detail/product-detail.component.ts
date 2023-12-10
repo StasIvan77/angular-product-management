@@ -10,7 +10,8 @@ import { ProductListComponent } from '../product-list/product-list.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-detail',
@@ -25,33 +26,48 @@ import { Router, RouterModule } from '@angular/router';
   ]
 })
 export class ProductDetailComponent {
-  product: Product | null = null;
+  product?: Product | null;
+  private routeSub?: Subscription;
   products: Product[] = [];
   selectedProduct?: Product | null = null;
 
-  constructor(private productService: ProductService, private router: Router, private productListComponent: ProductListComponent, private cdr: ChangeDetectorRef) {
+  constructor(private route: ActivatedRoute, private productService: ProductService) {
     
   }
   ngOnInit(): void {
-   this.products = this.productService.getProducts();
-  this.productService.productSelected$.subscribe((product: Product | null) => {
-    this.selectedProduct = product;
-    console.log('selected PRODUCT:', this.selectedProduct?.name);   
-    console.log('MY SELECTED', this.selectedProduct);
-    //this.productService.productSelected$.
+    const pId = this.route.snapshot.paramMap.get('productId')
+    const xObs = this.productService.onFetchProducts();
+
+    xObs.subscribe(
+      (resData: any) => {
+        console.log(resData, '99999999!!!!!!!!!!!!!!!!!!!!!!!!!');
+        this.products = resData['-NlJ6Rio4nKjkJ8yZIUO'];
+        const productForDetail = this.products.filter((p) => p && p.id.toString() === pId);
+      this.productService.productSelected$.subscribe((product: Product | null) => {
+      this.selectedProduct = productForDetail[0];
+
+
+      },
+      errorMessage => {
+        console.log(errorMessage, '2233333333');
+      }
+    );
+  
     
+    // console.log('xxxxxxxxxxxxxxxx', this.products)
+
+   
     
   });
   
   this.productService.getSelectedProduct();
   }   
 
-  handleSelectedProduct(product: Product | null): void {
+  handleSelectedProduct(product: Product): void {
     // Perform additional processing or actions based on the selected product
    
   //  this.handleSelectedProduct(this.selectedProduct);
     console.log('Handling selected product:', product);
-    this.productService.getSelectedProduct();
-    this.cdr.detectChanges();
+    // this.productService.getSelectedProduct(product);
   }
 }

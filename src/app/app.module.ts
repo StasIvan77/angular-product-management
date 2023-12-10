@@ -18,6 +18,7 @@ import { ProductService } from './products/product.service';
 import { ProductsResolverService } from './products/products-resolver.service';
 import { TagsListService } from './tags-list/tags-list-service';
 import { AppRoutingModule } from './app-routing.module';
+import { DataStorageService } from './shared/data-storage.service';
 
 
 
@@ -48,7 +49,7 @@ const appRoutes: Routes =[
     AppRoutingModule
   ],
   exports: [RouterModule],
-  providers: [ProductService, TagsListService, ProductListComponent],
+  providers: [ProductService, TagsListService, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

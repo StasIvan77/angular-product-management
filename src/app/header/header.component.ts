@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.router.isActive(route, false); // Set the 'exact' parameter to 'false'
   }
   ngOnInit() {
-    this.products = this.productService.getProducts();
+    // this.products = this.productService.getProducts();
 
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSaveData() {
-    this.dataStorageService.storeProducts();
+    this.dataStorageService.storeProducts(this.products);
   }
 
   onFetchProducts(){

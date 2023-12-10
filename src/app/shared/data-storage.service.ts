@@ -7,10 +7,10 @@ import { map, tap } from "rxjs";
 @Injectable({providedIn: 'root'})
 export class DataStorageService {
     
-    constructor(private http: HttpClient, private productService: ProductService ) {}
+    constructor(private http: HttpClient) {}
 
-    storeProducts() {
-        const products = this.productService.getProducts();
+    storeProducts(products: Product[]) {
+        //const products = this.productService.getProducts();
         return this.http.post('https://angular-product-manageme-6e745-default-rtdb.europe-west1.firebasedatabase.app/products.json', products)
             .subscribe(response => console.log(response));
     }
@@ -18,11 +18,12 @@ export class DataStorageService {
     fetchProducts() {
         return this.http.get<Product[]>('https://angular-product-manageme-6e745-default-rtdb.europe-west1.firebasedatabase.app/products.json')
         .pipe(map(products => {
-            return products.map(product => {
-                return {...product}
-            });
+            return products
         }), tap(products => {
-            this.productService.setProducts(products);
+            console.log('222222222222222222222222222', products)
+            return products
+
+            // this.productService.setProducts(products);
         })
         )
     }
