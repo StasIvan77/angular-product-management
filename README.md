@@ -40,23 +40,23 @@ For the version of CLI watch in the end.
 
 ## Features
 Display a list of products with basic information.
-Create, update, and delete products.
-View product details and edit product information.
-Manage tags with create, update, and delete functionality.
-Associate tags with products.
-Filter products based on selected tags.
+Create, update, and delete products. (working on it...)
+View product details and edit product information. (working on it...)
+Manage tags with create, update, and delete functionality. (+)
+Associate tags with products.(working on it...)
+Filter products based on selected tags. (working on it...)
 
 
 ## Usage
 
 Product List Page:
-The home page displays a list of products.
-Click the "Create Product" button to add a new product.
-Use the "Delete" button to remove a product from the list.
+The home page displays a list of products.(+)
+Click the "Create Product" button to add a new product.(working on it...)
+Use the "Delete" button to remove a product from the list.(temporally not working)
 
 Product Detail Page:
-Click on a product in the list to view its details.
-Use the "Edit" button to update product information.
+Click on a product in the list to view its details.(+)
+Use the "Edit" button to update product information.(working on it...)
 Click "Delete" to remove the selected product. (not working yet)
 
 
@@ -64,7 +64,7 @@ Click "Delete" to remove the selected product. (not working yet)
 Navigate to the "Tags manage" page to manage tags.
 But before you see it you need to login as user (for now) login[ivan12@test.com]password[12121212]
 Aftentefication not working fully, some futures will improve in time
-Create, edit, and delete tags. (working fine)
+Create, edit, and delete tags. (+)
 Associate tags with products during product creation or update.(only some part of this functionality)
 Filter Products by Tags(not working yet)
 

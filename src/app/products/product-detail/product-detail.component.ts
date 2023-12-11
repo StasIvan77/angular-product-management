@@ -37,12 +37,14 @@ export class ProductDetailComponent {
     ) {  
   }
   ngOnInit(): void {
+
+    //some very bad code here, need help!
     const pId = this.route.snapshot.paramMap.get('productId')
     const getProductsParam = this.productService.onFetchProducts();
 
     getProductsParam.subscribe(
       (resData: any) => {
-        console.log(resData, ':details of a product');
+        //console.log(resData, ':details of a product');
         this.products = resData['-NlJ6Rio4nKjkJ8yZIUO'];
         const productForDetail = this.products.filter((p) => p && p.id.toString() === pId);
       this.productService.productSelected$.subscribe((product: Product | null) => {
