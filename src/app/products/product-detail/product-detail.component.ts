@@ -38,9 +38,9 @@ export class ProductDetailComponent {
   }
   ngOnInit(): void {
     const pId = this.route.snapshot.paramMap.get('productId')
-    const xObs = this.productService.onFetchProducts();
+    const getProductsParam = this.productService.onFetchProducts();
 
-    xObs.subscribe(
+    getProductsParam.subscribe(
       (resData: any) => {
         console.log(resData, ':details of a product');
         this.products = resData['-NlJ6Rio4nKjkJ8yZIUO'];

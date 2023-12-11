@@ -36,35 +36,40 @@ bash
 Copy code
 ng serve
 Open your browser and go to http://localhost:4200/ to view the app.
+For the version of CLI watch in the end.
 
-Features
+## Features
 Display a list of products with basic information.
 Create, update, and delete products.
 View product details and edit product information.
 Manage tags with create, update, and delete functionality.
 Associate tags with products.
 Filter products based on selected tags.
-Usage
-Product List Page:
 
+
+## Usage
+
+Product List Page:
 The home page displays a list of products.
 Click the "Create Product" button to add a new product.
 Use the "Delete" button to remove a product from the list.
-Product Detail Page:
 
+Product Detail Page:
 Click on a product in the list to view its details.
 Use the "Edit" button to update product information.
-Click "Delete" to remove the selected product.
-Tag Management:
+Click "Delete" to remove the selected product. (not working yet)
 
-Navigate to the "Tags" page to manage tags.
-Create, edit, and delete tags.
-Associate tags with products during product creation or update.
-Filter Products by Tags:
+
+## Tag Management:
+Navigate to the "Tags manage" page to manage tags.
+But before you see it you need to login as user (for now) login[ivan12@test.com]password[12121212]
+Create, edit, and delete tags. (working fine)
+Associate tags with products during product creation or update.(only some part of this functionality)
+Filter Products by Tags(not working yet)
 
 On the product list page, select tags to filter products.
 Click the "Clear Filter" button to reset the filter.
-Folder Structure
+Folder Structure (not working yet)
 
 The project trying to follow Angular project structure:
 

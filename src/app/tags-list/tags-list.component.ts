@@ -61,13 +61,11 @@ export class TagsListComponent implements OnInit, OnDestroy {
   ngOnInit(){
       this.tagChangeSub = this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
         tags = this.tags;      
-      console.log('My actual tags list:', this.tags);
     })
+
   } 
 
-  ngOnDestroy() {
-    this.tagChangeSub?.unsubscribe();
-  }
+ 
 
   openColorPicker() {
     if (this.colorPicker) {
@@ -77,8 +75,7 @@ export class TagsListComponent implements OnInit, OnDestroy {
 
   addTag(event: MatChipInputEvent): void {
 
-    const value = this.userInputValue !== null && this.userInputValue !== undefined ?  event.value : 'New Tag';
-    console.log(event.value);
+    const value = this.userInputValue !== null && this.userInputValue !== undefined ?  event.value : 'New Tag';    
     if (value != '') {
      event.chipInput!.clear();
     } 
@@ -86,19 +83,12 @@ export class TagsListComponent implements OnInit, OnDestroy {
       this.userInputColor = '#ffffff';
     }
     
-      // Add our keyword
-      console.log('color:'+ this.userInputColor);
-      console.log('value:'+ value);
+      // Add our keyword      
         if(value == '') {
           event.chipInput!.clear();
         } else {          
           this.tags.push(new Tag(value, this.userInputColor));
-          this.tagService.tagsUpdated();
-          // It's updating tags without this:
-          // const newTag = new Tag(value, this.userInputColor);
-          // //this.tagAdded.emit(newTag);
-          // this.onTagAdded(event);
-          // console.log('newTag' + newTag.name);
+          this.tagService.tagsUpdated();          
         }        
         
         this.formControl.setValue(this.tags.map(tags => tags.name)); // Update the form control value
@@ -147,6 +137,10 @@ export class TagsListComponent implements OnInit, OnDestroy {
 
   colorSelected(color: string): void {
     this.userInputColor = color;
-  }  
+  }
+  
+  ngOnDestroy() {
+    this.tagChangeSub?.unsubscribe();
+  }
 }
  
