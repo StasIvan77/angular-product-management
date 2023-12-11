@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild, inject} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild, inject} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
@@ -12,6 +12,7 @@ import { Tag } from '../shared/tag.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { TagsListService } from './tags-list-service';
 import { RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 
@@ -39,7 +40,7 @@ import { RouterModule } from '@angular/router';
 
 })
 
-export class TagsListComponent {
+export class TagsListComponent implements OnInit, OnDestroy {
   @ViewChild(ColorPickerDirective) colorPicker: ColorPickerDirective | undefined;
   @Output() tagAdded = new EventEmitter<Event> ();
 
@@ -48,31 +49,35 @@ export class TagsListComponent {
   userInputColor: string = '#ffffff';
 
   tags: Tag[] = [];
-
-  constructor(private tagService: TagsListService ) {
-
-  }
-
-  ngOnInit(){
-    this.tags = this.tagService.getTags();
-    this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
-      tags = this.tags;
-      console.log('My actual tags list:', this.tags);
-    })
-  }
+  private tagChangeSub?: Subscription;
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   announcer = inject(LiveAnnouncer);
 
+  constructor(private tagService: TagsListService ) {}
+
+  ngOnInit(){
+    this.tags = this.tagService.getTags();
+    this.tagChangeSub = this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
+      this.tags = tags;
+      console.log('My actual tags list:', this.tags);
+    })
+  } 
+
+  ngOnDestroy() {
+    this.tagChangeSub?.unsubscribe();
+  }
+
   openColorPicker() {
     if (this.colorPicker) {
       this.colorPicker.openDialog(); // Open the color picker dialog
     }
   }
+
   addTag(event: MatChipInputEvent): void {
-    //this.openColorPicker();
+
     const value = this.userInputValue !== null && this.userInputValue !== undefined ?  event.value : 'New Tag';
     console.log(event.value);
     if (value != '') {
@@ -87,8 +92,7 @@ export class TagsListComponent {
       console.log('value:'+ value);
         if(value == '') {
           event.chipInput!.clear();
-        } else {
-          
+        } else {          
           this.tags.push(new Tag(value, this.userInputColor));
           this.tagService.tagsUpdated();
           // It's updating tags without this:
@@ -96,13 +100,11 @@ export class TagsListComponent {
           // //this.tagAdded.emit(newTag);
           // this.onTagAdded(event);
           // console.log('newTag' + newTag.name);
-        }
-        
+        }        
         
         this.formControl.setValue(this.tags.map(tags => tags.name)); // Update the form control value
         this.userInputColor = ''; // Clear the input field after adding
-        this.userInputValue = '';     
-      
+        this.userInputValue = '';  
   
       // Clear the input value
       if (event) {
@@ -115,16 +117,15 @@ export class TagsListComponent {
 
     if (index >= 0) {
       this.tags.splice(index, 1);
-
       this.announcer.announce(`Removed ${tag}`);
     }    
   }
-    //є баг з кольорами коли апдейтити
+    //
    edit(tag: Tag, event: MatChipEditedEvent) {    
 
     const value = event.value.trim();
     
-    // Remove fruit if it no longer has a name
+    // Remove chip if it no longer has a name
     if (!value) {
       this.removeChip(tag);
       return;
@@ -136,14 +137,12 @@ export class TagsListComponent {
     if (index >= 0) {
       if( this.userInputColor == '' || this.userInputColor == '#ffffff'){
         this.userInputColor = this.tags[index].colorTag;
-      } else 
-      {
-        
-      }
+        } else 
+               {  }
          this.formControl.setValue(this.tags[index].name = value);
          this.formControl.setValue(this.tags[index].colorTag = this.userInputColor);
     }
-    this.userInputColor = ''; // Clear the input field after adding
+    this.userInputColor = '#ffffff'; // Clear the input field after adding
     this.userInputValue = ''; 
   }
 

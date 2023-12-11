@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output } from "@angular/core";
+import { Injectable, Output } from "@angular/core";
 import { Product } from "./product.model";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { Tag } from "../shared/tag.model";
@@ -11,9 +11,8 @@ import { DataStorageService } from "../shared/data-storage.service";
   providedIn: 'root'
 })
 export class ProductService {
-    //productSelected = new EventEmitter<Product>();
     productsChanged = new Subject<Product[]>();
-    @Output() productSelected = new EventEmitter<Product>();
+    @Output() productSelected = new Subject<Product>();
 
     private productSelectedSource = new BehaviorSubject<Product | null>(null);
     productSelected$ = this.productSelectedSource.asObservable();
@@ -57,24 +56,17 @@ export class ProductService {
         // this.onFetchProducts();
       }
 
-      getProducts(p : Product[]) {
-        // return this.dataStorageService.fetchProducts();
-        
-        return p;
-      }
-
-      setProducts(products: Product[]) {
-        // this.products = products;
+      setProducts(products: Product[]) {        
         // @ts-ignore
         this.products = products['-NlJ6Rio4nKjkJ8yZIUO'];
-
-        console.log(this.products, 'ppppp');
-        console.log(this.productsChanged);
         this.productsChanged.next(this.products);
       }
 
       
       addAllTagsToTagsManager(tags: Tag[]){
+        console.log('Show my products', this.products);
+       // this.dataStorageService.products.forEach(myTags => { tags.push(...myTags.tags) } );
+        console.log('My imported tags', tags);
         this.tagService.addTags(tags);      
       }
 
@@ -87,8 +79,7 @@ export class ProductService {
         return this.productSelected$;
       }
 
-      onFetchProducts(){
-        
+      onFetchProducts(){        
         console.log("fetching");
         return this.dataStorageService.fetchProducts();
       }

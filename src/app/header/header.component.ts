@@ -62,8 +62,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   manageAllTags(){
     
-    //const tagsFromProducts: Tag[] = this.products.map(product => product.tags[0]);
-    //    console.log('My all tags: ', tagsFromProducts);
+    const tagsFromProducts: Tag[] = this.products.map(product => product.tags[0]);
+    console.log('My all tags: ', tagsFromProducts);
 
     const allTags: Tag[] = [];
     this.products.map(product =>  product.tags.forEach(tag => {

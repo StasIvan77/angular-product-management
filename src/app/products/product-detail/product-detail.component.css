@@ -1,0 +1,58 @@
+.detail-page {
+    
+    margin: 20px;
+}
+
+.image-styles {
+    max-width: 400px;
+    max-height: 400px;
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.horizontal-items {
+    display: flex;
+    background-color: #8C9EFF;
+    border-radius: 5px;
+    max-width: 750px;
+
+}
+
+.button-position-style {
+    margin-top: auto;
+}
+
+.detail-part {
+
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    max-width: 300px;
+    padding: 10px;
+    
+}
+
+.image-part {
+    text-align: left;
+    flex: 4;
+    padding: 30px;
+    
+}
+
+.back-button-style {
+    margin-bottom: 20px;
+}
+
+.tags-padding {
+    padding: 10px;
+    display: flex;
+    gap: 3px;
+}
+
+.manage-button {
+    margin: 10px;
+}

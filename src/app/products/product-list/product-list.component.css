@@ -1,5 +1,4 @@
 
-
   .tile-content {
     display: flex;
     flex-direction: column; /* Display items vertically */
@@ -16,12 +15,12 @@
   
 
   .tile-content img {
-    max-height: 150px; /* Ensure the image doesn't exceed the container width */
+    max-height: 150px;
   }
 
 
   .buttonStyle   {
-    margin-left: 20px;
+    margin: auto 10px 10px 0;
   }
 
 .tileMargin {
@@ -36,8 +35,12 @@
   }
 
   .card {
-    background-color: #9fa8da;
+    background-color: #8C9EFF;
     border-radius: 20px;
 
     width: 400px;
+  }
+
+  .card-discription-style{
+    margin-top: 4px;
   }

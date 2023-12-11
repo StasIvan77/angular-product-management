@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http'
 import { Product } from "../products/product.model";
-import { ProductService } from "../products/product.service";
 import { map, tap } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class DataStorageService {
+    public products: Product[] = [];
     
     constructor(private http: HttpClient) {}
 
@@ -20,10 +20,9 @@ export class DataStorageService {
         .pipe(map(products => {
             return products
         }), tap(products => {
-            console.log('222222222222222222222222222', products)
+            this.products = products; 
+            //console.log("My products after fetching:", this.products);
             return products
-
-            // this.productService.setProducts(products);
         })
         )
     }

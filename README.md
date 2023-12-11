@@ -1,27 +1,101 @@
-# AngularProductManagement
+# Angular Product Management App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
+This Angular web application allows users to manage a list of products and associated tags. Users can view, create, update, and delete products and tags, as well as filter products based on tags.
 
-## Development server
+## Table of Contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Getting Started](#getting-started)
+- [Features](#features)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Code scaffolding
+## Getting Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To run the application locally, follow these steps:
 
-## Build
+1. Clone the repository:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+bash
+   git clone https://github.com/your-username/your-angular-app.git
+Navigate to the project folder:
 
-## Running unit tests
+bash
+Copy code
+cd angular-product-management
+Install dependencies:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+bash
+Copy code
+npm install
+Run the application:
 
-## Running end-to-end tests
+bash
+Copy code
+ng serve
+Open your browser and go to http://localhost:4200/ to view the app.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Features
+Display a list of products with basic information.
+Create, update, and delete products.
+View product details and edit product information.
+Manage tags with create, update, and delete functionality.
+Associate tags with products.
+Filter products based on selected tags.
+Usage
+Product List Page:
 
-## Further help
+The home page displays a list of products.
+Click the "Create Product" button to add a new product.
+Use the "Delete" button to remove a product from the list.
+Product Detail Page:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Click on a product in the list to view its details.
+Use the "Edit" button to update product information.
+Click "Delete" to remove the selected product.
+Tag Management:
+
+Navigate to the "Tags" page to manage tags.
+Create, edit, and delete tags.
+Associate tags with products during product creation or update.
+Filter Products by Tags:
+
+On the product list page, select tags to filter products.
+Click the "Clear Filter" button to reset the filter.
+Folder Structure
+
+The project trying to follow Angular project structure:
+
+
+angular-product-app/
+|-- src/
+|   |-- app/
+|       |-- components/
+|       |   |-- products/
+|       |       |--product-detail
+        |       |--product-list
+|       |   |-- header/
+|       |   |-- tags-list/
+|       |   |-- shared/
+|       |   |-- auth/
+|       |-- services/
+|       |-- models/
+|       |-- app-routing.module.ts
+|       |-- app.module.ts
+|-- ...
+
+Technologies Used:
+Angular CLI v16.2.6
+Angular Material 16x
+Node v18.17
+TypeScript
+HTML
+CSS
+ngx
+Firebase
+
+
+License
+This project is licensed under the MIT License.

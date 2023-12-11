@@ -6,7 +6,6 @@ import { ProductModule } from './products.module';
 import { Product } from './product.model';
 import { ProductService } from './product.service';
 import { ProductListComponent } from './product-list/product-list.component';
-import { ProductItemComponent } from './product-list/product-item/product-item.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CommonModule } from '@angular/common';
 
@@ -21,7 +20,6 @@ import { CommonModule } from '@angular/common';
     MatIconModule, 
     ProductModule,
     ProductListComponent, 
-    ProductItemComponent, 
     ProductDetailComponent,
     CommonModule],
   providers: [ProductService]
@@ -36,22 +34,12 @@ export class ProductsComponent implements OnInit {
 
   constructor(private productService: ProductService) {}
 
-  ngOnInit() {
-
-    
+  ngOnInit() {    
     // this.products = this.productService.getProducts();
     // this.products = this.data
-
-    this.productService.productSelected.subscribe((product: Product) => {
-      this.selectedProduct = product;
-    });
   }
 
   onProductSelected(product: Product): void {
     this.selectedProduct = product;    
   }
-
-
-  
-
 }

@@ -1,50 +1,44 @@
 
 <div class="container">
   <button mat-raised-button class="buttonStyle" color="basic" [routerLink]="['/products']">Back</button>
-
- <!-- Functionality for disable a form
- <button mat-raised-button (click)="formControl.disable()">Disable form control</button> -->
   <div class="containerTags">
-  <div class="first-div">
-    <p [(colorPicker)]="userInputColor">
-      First choose <span style="font-weight: bold;">color</span>      
-    </p> 
-    <button mat-icon-button class="mat-icon-button-style" (click)="openColorPicker()" [(colorPicker)]="userInputColor">
-      <mat-icon class="mat-icon-style">palette</mat-icon>
-    </button>
-    <input class="styleOfColor" readonly [(colorPicker)]="userInputColor" [style.background]="userInputColor" placeholder="Your tag color"/>
-    
-  </div>
-  <div class="second-div">
-    <p>    All your existing tags:</p>
-    <p> *double-click to edit</p>
-    <mat-form-field class="chip-list" class="mat-styles" >    
-      <mat-label>Your Custom Tags</mat-label>  
-      <mat-chip-grid  #chipGrid aria-label="Enter tags" [formControl]="formControl" >
-        <mat-chip-row *ngFor="let chip of tags; let i = index;"  [style.background]="chip.colorTag"
-        [editable]="true" (edited)="edit(chip, $event)" [aria-description]="'press enter to edit ' + chip.name">
-          {{ chip.name }}
-          <button matChipRemove (click)="removeChip(chip)" aria-label="'remove ' + chip.name">
-              <mat-icon>cancel</mat-icon>
-            </button>        
-        </mat-chip-row>  
-        <input 
-          placeholder="Enter a new tag..."
-          [matChipInputFor]="chipGrid"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="addTag($event);"   
-        />      
-      </mat-chip-grid>
-    </mat-form-field>
-    <div>    
-      <button mat-raised-button color="primary" >Update</button>
+    <div class="first-div">
+      <p [(colorPicker)]="userInputColor">
+        First choose <span style="font-weight: bold;">color</span>      
+      </p> 
+      <button mat-icon-button class="mat-icon-button-style" (click)="openColorPicker()" [(colorPicker)]="userInputColor">
+        <mat-icon class="mat-icon-style">palette</mat-icon>
+      </button>
+      <input class="styleOfColor" readonly [(colorPicker)]="userInputColor" [style.background]="userInputColor" placeholder="Your tag color"/>
+      
+    </div>
+    <div class="second-div">
+      <p>    All your existing tags:</p>
+      <p> *double-click on Tag to edit</p>
+      <mat-form-field class="chip-list" class="mat-styles" >    
+        <mat-label>Your Custom Tags</mat-label>  
+        <mat-chip-grid  #chipGrid aria-label="Enter tags" [formControl]="formControl" >
+          <mat-chip-row *ngFor="let chip of tags; let i = index;"  [style.background]="chip.colorTag"
+          [editable]="true" (edited)="edit(chip, $event)" [aria-description]="'press enter to edit ' + chip.name">
+            {{ chip.name }}
+            <button matChipRemove (click)="removeChip(chip)" aria-label="'remove ' + chip.name">
+                <mat-icon>cancel</mat-icon>
+              </button>        
+          </mat-chip-row>  
+          <input 
+            placeholder="Enter a new tag..."
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="addTag($event);"   
+          />      
+        </mat-chip-grid>
+      </mat-form-field>
+      <div>    
+        <button mat-raised-button color="primary" >Update</button>
+      </div>
     </div>
   </div>
-  </div>
- 
-  
-  
 </div>
 
 

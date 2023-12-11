@@ -1,18 +1,15 @@
-import { Component, EventEmitter, HostListener, Injectable, Input, OnInit, Output } from '@angular/core';
+import { Component, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../product.model';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../product.service';
-import { ProductItemComponent } from './product-item/product-item.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
-import { Subject } from 'rxjs';
-import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 
 
@@ -25,14 +22,12 @@ import { DataStorageService } from 'src/app/shared/data-storage.service';
     MatDividerModule,
     MatIconModule,
     CommonModule,
-    ProductItemComponent,
     MatGridListModule,
     MatCardModule,
     MatChipsModule,
     RouterModule,
     ProductDetailComponent,
-  ]
-  
+  ]  
 })
 
 export class ProductListComponent implements OnInit {
@@ -41,13 +36,13 @@ export class ProductListComponent implements OnInit {
   cols?: number;
   indexOfSelectedProduct: number = 0;
   selectedProduct: boolean = true;
-  isDetailsRoute: boolean = false;
+  isDetailsRoute: boolean = false;  
 
-  
-
-  constructor(private productService: ProductService, private router: Router,  private dataStorageService: DataStorageService) {
-        // this.productService.onFetchProducts();
-
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private route: ActivatedRoute
+    ) {
     this.calculateCols(window.innerWidth)
   }
 
@@ -71,17 +66,15 @@ export class ProductListComponent implements OnInit {
     }
   }
   ngOnInit() {
-    const xObs = this.productService.onFetchProducts();
+    const getProducts = this.productService.onFetchProducts();
 
-    xObs.subscribe(
+    getProducts.subscribe(
       (resData: any) => {
-        // console.log(resData, '!!!!!!!!!!!!!!!!!!!!!!!!!');
         this.products = resData['-NlJ6Rio4nKjkJ8yZIUO'].filter((p: Product) => !!p);
-    // this.productService.getProducts(resData);
-
+        // this.productService.getProducts(resData);
       },
       errorMessage => {
-        console.log(errorMessage, '2233333333');
+        console.log(errorMessage, 'Some error on fetching products array');
       }
     );
     
@@ -90,19 +83,11 @@ export class ProductListComponent implements OnInit {
   OnSelected(product: Product) {  
     this.isDetailsRoute = true;
     this.indexOfSelectedProduct = this.products.indexOf(product);
-    console.log('My index is:', this.products.indexOf(product));
-      console.log(this.productService.productSelected.emit(product));
-      //this.productDetailComponent.moveProductToDetail();
-      this.productService.productSelected.emit(product);
-      this.productService.setSelectedProduct(product);
-      let ccc;
-      this.productService.getSelectedProduct().forEach( p => ccc = p, );
-      
-      console.log('My product before go to new page', product, 'ccc', ccc);
-      //this.redirectToDetails(product);
-
-   
-      this.router.navigate([`/details/${product.id}`]);
+    // console.log('My index is:', this.products.indexOf(product));
+    // console.log(this.productService.productSelected.emit(product));
+    this.productService.productSelected.next(product);
+    this.productService.setSelectedProduct(product);        
+    this.router.navigate([`/details/${product.id}`]);
       
   }
 
@@ -110,7 +95,8 @@ export class ProductListComponent implements OnInit {
     console.log('This selected product:', product);
     return product;
   };
-  
 
- 
+  onNewProduct(){
+    this.router.navigate(['/products/new'], {relativeTo: this.route});
+  }  
 }

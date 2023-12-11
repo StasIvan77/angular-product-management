@@ -1,34 +1,29 @@
-<div>
-    <img src="" alt="" class="img-responsive">
-</div>
-<div>
-
-    <h1 > Name {{ selectedProduct?.name }} </h1>
-    <div>
-        <p>{{ selectedProduct?.price }}</p>
-    </div>
-    <div>
-        <img mat-card-image class="tile-image" src="{{selectedProduct?.imagePath}}" alt="{{ selectedProduct?.name }}">
-    </div>
-</div>
-
-<div>
-    <p>{{ selectedProduct?.description }}</p>
-</div>
-
-<div>
-    <div class="tags-content" *ngFor="let chip of selectedProduct?.tags; let i = index">
-        <mat-chip [style.background]="chip?.colorTag">
-            {{ chip?.name }}
-        </mat-chip>
-    </div>
-</div>
-<div>
-    <button mat-flat-button color="accent" [matMenuTriggerFor]="menu">Manage<mat-icon>create</mat-icon></button>
-    <mat-menu #menu="matMenu">        
-        <button mat-menu-item href="#">Edit</button>
-        <button mat-menu-item href="#">Delete</button>
-      </mat-menu>      
-    <button mat-raised-button color="basic" [routerLink]="['/products']">Back</button>
-
+<div class="detail-page">
+    <button mat-raised-button class="back-button-style" color="basic" [routerLink]="['/products']">Back</button>    
+    <div class="horizontal-items" >
+        <div class="detail-part">
+            <h1> {{ selectedProduct?.name }} </h1>
+            <p>{{ selectedProduct?.price }} UAH</p>
+            <div>
+                <p>{{ selectedProduct?.description }}</p>
+            </div>        
+            <div class="tags-padding">
+                <div class="tags-content" *ngFor="let chip of selectedProduct?.tags; let i = index">
+                    <mat-chip [style.background]="chip?.colorTag">
+                        {{ chip?.name }}
+                    </mat-chip>
+                </div>
+            </div>
+            <div class="button-position-style">
+                <button mat-flat-button color="accent" [matMenuTriggerFor]="menu" class="manage-button">Manage<mat-icon>create</mat-icon></button>
+                <mat-menu #menu="matMenu">        
+                    <button mat-menu-item (click)="onEditProduct()">Edit</button>
+                    <button mat-menu-item href="#">Delete</button>
+                </mat-menu>                      
+            </div>
+        </div>        
+        <div class="image-part">
+            <img mat-card-image class="image-styles" src="{{selectedProduct?.imagePath}}" alt="{{ selectedProduct?.name }}">
+        </div>
+    </div>      
 </div>
