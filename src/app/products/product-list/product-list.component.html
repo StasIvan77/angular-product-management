@@ -15,13 +15,16 @@
                     <mat-card-content class="card-discription-style">                        
                         <p>{{ product.description }}</p>                        
                     </mat-card-content>
-                    <mat-card-actions>
-                        <div class="tags-content" *ngFor="let chip of product.tags; let i = index">
-                            <mat-chip [style.background]="chip.colorTag">
-                                {{ chip.name }}
-                            </mat-chip>
-                        </div>
-                    </mat-card-actions>
+                    <div class="tags-content">
+                        <mat-card-actions class="card-action-style">
+                            <div  *ngFor="let chip of product.tags; let i = index" class="chip-styles">
+                                <mat-chip [style.background]="chip.colorTag">
+                                    {{ chip.name }}
+                                </mat-chip>
+                            </div>
+                        </mat-card-actions>
+                    </div>
+                    
                 </mat-card>
             </mat-grid-tile>    
         </mat-grid-list>
