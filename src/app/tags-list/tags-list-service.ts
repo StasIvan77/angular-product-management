@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Tag } from "../shared/tag.model";
 
 import { DataStorageService } from "../shared/data-storage.service";
@@ -22,18 +22,23 @@ export class TagsListService {
         return this.tags.slice();
       }  
 
+      getTag(index: number) {
+        return this.tags[index];
+      } 
+
       setTags() {
-        console.log('My first tag', this.dataStorageService.products.map);
+        //
        // return this.dataStorageService.products[0].tags;
       }
+
+      
 
       tagsUpdated(){
         this.tagsChanged.next(this.tags.slice());
         console.log('Tags Updated!');
       }
 
-      addTags(tags: Tag[]) {
-         
+      addTags(tags: Tag[]) {       
         
         console.log('Before push', this.tags.slice());
             this.tags = [];
@@ -41,7 +46,6 @@ export class TagsListService {
             this.tagsChanged.next(this.tags.slice());            
             console.log('Tags Updated via AddTags!');
             console.log(this.tags.slice());
-           //this.tagsListComponent.formControl.setValue(this.tags.map(tags => tags.name));
         
       }
 

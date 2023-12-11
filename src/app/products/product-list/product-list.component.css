@@ -37,7 +37,7 @@
   .card {
     background-color: #8C9EFF;
     border-radius: 20px;
-
+    scale: (1.6);
     width: 400px;
   }
 

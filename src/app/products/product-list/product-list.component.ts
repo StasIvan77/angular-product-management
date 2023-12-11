@@ -56,13 +56,13 @@ export class ProductListComponent implements OnInit {
     if (windowWidth < 560) {
       this.cols = 1;
     } else if (windowWidth < 850) {
-      this.cols = 2;
+      this.cols = 1;
     } else if (windowWidth < 1150) {
-      this.cols = 3;
+      this.cols = 2;
     } else if (windowWidth < 1400) {
-      this.cols = 4; // Default number of columns
+      this.cols = 3; // Default number of columns
     } else if (windowWidth > 1400) {
-      this.cols = 5; // Default number of columns
+      this.cols = 4; // Default number of columns
     }
   }
   ngOnInit() {

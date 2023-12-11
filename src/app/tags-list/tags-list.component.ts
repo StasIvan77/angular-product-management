@@ -59,9 +59,8 @@ export class TagsListComponent implements OnInit, OnDestroy {
   constructor(private tagService: TagsListService ) {}
 
   ngOnInit(){
-    this.tags = this.tagService.getTags();
-    this.tagChangeSub = this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
-      this.tags = tags;
+      this.tagChangeSub = this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
+        tags = this.tags;      
       console.log('My actual tags list:', this.tags);
     })
   } 
