@@ -63,6 +63,7 @@ Click "Delete" to remove the selected product. (not working yet)
 ## Tag Management:
 Navigate to the "Tags manage" page to manage tags.
 But before you see it you need to login as user (for now) login[ivan12@test.com]password[12121212]
+Aftentefication not working fully, some futures will improve in time
 Create, edit, and delete tags. (working fine)
 Associate tags with products during product creation or update.(only some part of this functionality)
 Filter Products by Tags(not working yet)
