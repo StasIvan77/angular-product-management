@@ -1,8 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Input } from "@angular/core";
 import { Tag } from "../shared/tag.model";
 
 import { DataStorageService } from "../shared/data-storage.service";
 import { Subject, Subscription } from "rxjs";
+import { Product } from "../products/product.model";
+import { ProductService } from "../products/product.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,9 @@ export class TagsListService {
   private tagChangeSub?: Subscription;
   public tagsChanged = new Subject<Tag[]>
   private tags: Tag[] = [];
+  @Input() products: Product[] = [];
   
-    constructor(private  dataStorageService: DataStorageService){
-      
+    constructor(private  dataStorageService: DataStorageService){     
 
       this.tagChangeSub = this.tagsChanged.subscribe((tags: Tag[]) => {
         tags = this.tags;      
@@ -46,7 +48,7 @@ export class TagsListService {
       }
 
       addTags(tags: Tag[]) {       
-        
+        this. manageAllTags();
         console.log('Before push', this.tags.slice());
             this.tags = [];
             this.tags.push(...tags);
@@ -56,6 +58,27 @@ export class TagsListService {
         
       }
 
+      manageAllTags(){
+    
+        const tagsFromProducts: Tag[] = this.products.map(product => product.tags[0]);
+        console.log('this.products:', this.products);
+        console.log('My all tags: ', tagsFromProducts);
+    
+        const allTags: Tag[] = [];
+        this.products.map(product =>  product.tags.forEach(tag => {
+          const existingTag = allTags.find(t => t.name === tag.name);
+    
+            // If not found, add it to the array
+            if (!existingTag) {
+                allTags.push(new Tag(tag.name, tag.colorTag));
+            }
+      }));
+      console.log('My all tags: ', allTags);
+         // this.addAllTagsToTagsManager(allTags);
+        }
+
+
+       
       
       
 }

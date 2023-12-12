@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
 
 
-  constructor(private authService: AuthService, private dataStorageService: DataStorageService, private productService: ProductService, private router: Router){
+  constructor(private authService: AuthService, private dataStorageService: DataStorageService, private router: Router){
 
   }
   
@@ -53,6 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onFetchProducts(){
     this.dataStorageService.fetchProducts().subscribe();
+    this.router.navigate(['/tags-manage']);
   }
 
   onSelect(feature: string) {
@@ -60,21 +61,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
 
-  manageAllTags(){
-    
-    const tagsFromProducts: Tag[] = this.products.map(product => product.tags[0]);
-    console.log('My all tags: ', tagsFromProducts);
-
-    const allTags: Tag[] = [];
-    this.products.map(product =>  product.tags.forEach(tag => {
-      const existingTag = allTags.find(t => t.name === tag.name);
-
-        // If not found, add it to the array
-        if (!existingTag) {
-            allTags.push(new Tag(tag.name, tag.colorTag));
-        }
-  }));
-  console.log('My all tags: ', allTags);
-      this.productService.addAllTagsToTagsManager(allTags);
-    }
+  
 }

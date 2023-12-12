@@ -9,9 +9,8 @@
   
   .tags-content {
     display: flex;
-    flex-wrap: wrap;
     padding: 5px;
-    
+    margin-top: auto;
   }
   
 
@@ -20,36 +19,33 @@
   }
 
 
-  .buttonStyle   {
-    margin: auto 10px 10px 0;
-  }
-
 .tileMargin {
     margin: 20px;
 }
 
 .tile-image {
     align-self: center;
-    width: 50%;
-    height: 50%;
+
+    max-height: 150px;
     border-radius: 10px;
+    height: auto;
     border: 2px solid black;
   }
 
   .card {
     background-color: #8C9EFF;   
     overflow: auto;
-    width: 500px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 20px;
-    margin: 10px;
+    width: 400px;
+    height: 450px;
+    border-radius: 10px;
+    cursor: pointer;
     
    
   }
 
   .card-discription-style{
     margin-top: 4px;
+    height: 65px;
     overflow: auto;
   }
 
@@ -61,8 +57,21 @@
     }
 
     .card-action-style {
+      
       display: flex;
       flex-wrap: wrap;
+      align-items: flex-start;
+      
     }
     
-  
+  .mat-grid-main {
+    padding: 5px 0 5px 0;
+  }
+
+  .button-add-style{
+    margin: 0 20px 0px 0;
+}
+
+.grid-list-mat{
+  padding: 30px;
+}

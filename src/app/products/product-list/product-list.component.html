@@ -1,11 +1,11 @@
 
 <div class="tileMargin">    
     <div>
-        <div class="buttonStyle">
-            <button mat-raised-button color="primary" class="buttonStyle" (click)="onNewProduct()">Add product</button>
+        <div class="button-add-style" >
+            <button mat-raised-button color="primary"  (click)="onNewProduct()">Add product</button>
         </div>
-        <mat-grid-list [cols]="cols" rowHeight="5:6" gutterSize="20px" hideDisable>            
-            <mat-grid-tile *ngFor="let product of products" >
+        <mat-grid-list [cols]="cols" rowHeight="8:9" gutterSize="20px" hideDisable class="grid-list-mat">            
+            <mat-grid-tile *ngFor="let product of products" class="mat-grid-main">
                 <mat-card class="card"    (click)="OnSelected(product);">
                     <mat-card-header>
                         <mat-card-title>{{ product.name }}</mat-card-title>

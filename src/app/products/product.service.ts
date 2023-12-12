@@ -29,12 +29,7 @@ export class ProductService {
       }
 
       
-      addAllTagsToTagsManager(tags: Tag[]){
-        console.log('Show my products', this.products);
-       // this.dataStorageService.products.forEach(myTags => { tags.push(...myTags.tags) } );
-        console.log('My imported tags', tags);
-        this.tagService.addTags(tags);      
-      }
+     
 
       setSelectedProduct(product: Product | null): void {
         this.productSelectedSource.next(product);

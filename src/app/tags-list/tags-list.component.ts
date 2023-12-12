@@ -60,8 +60,10 @@ export class TagsListComponent implements OnInit, OnDestroy {
 
   ngOnInit(){
       this.tagChangeSub = this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
-        tags = this.tags;      
+        tags = this.tags;  
+        console.log("tags", tags);    
     })
+    
 
   } 
 
@@ -141,6 +143,14 @@ export class TagsListComponent implements OnInit, OnDestroy {
   
   ngOnDestroy() {
     this.tagChangeSub?.unsubscribe();
+  }
+
+  addAllTagsToTagsManager(){
+    this.tagService.manageAllTags()
+    console.log('Show my products', this.tagService.products);
+   // this.dataStorageService.products.forEach(myTags => { tags.push(...myTags.tags) } );
+   // console.log('My imported tags', tags);
+    //this.tagService.addTags(tags);      
   }
 }
  
