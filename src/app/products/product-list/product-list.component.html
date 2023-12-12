@@ -4,7 +4,7 @@
         <div class="buttonStyle">
             <button mat-raised-button color="primary" class="buttonStyle" (click)="onNewProduct()">Add product</button>
         </div>
-        <mat-grid-list [cols]="cols" rowHeight="5:5" gutterSize="20px" hideDisable>            
+        <mat-grid-list [cols]="cols" rowHeight="5:6" gutterSize="20px" hideDisable>            
             <mat-grid-tile *ngFor="let product of products" >
                 <mat-card class="card"    (click)="OnSelected(product);">
                     <mat-card-header>

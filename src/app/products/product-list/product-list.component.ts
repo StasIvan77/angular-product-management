@@ -55,11 +55,11 @@ export class ProductListComponent implements OnInit {
     // Adjust the number of columns based on the window width or other conditions
     if (windowWidth < 560) {
       this.cols = 1;
-    } else if (windowWidth < 850) {
+    } else if (windowWidth < 880) {
       this.cols = 1;
-    } else if (windowWidth < 1150) {
+    } else if (windowWidth < 1300) {
       this.cols = 2;
-    } else if (windowWidth < 1400) {
+    } else if (windowWidth < 1600) {
       this.cols = 3; // Default number of columns
     } else if (windowWidth > 1400) {
       this.cols = 4; // Default number of columns
