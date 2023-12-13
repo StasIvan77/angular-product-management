@@ -17,12 +17,13 @@ export class TagsListService implements OnDestroy{
   private products: Product[] = [];
   private tagsFromProducts: Tag[] = [];
     constructor(private  dataStorageService: DataStorageService){     
-
+     
       this.productsSubscription = this.dataStorageService.products$.subscribe((products: Product[] ) => {
         console.log('Products in Tag service:', products);
-        this.products = products
+       // this.products = products
       });
-
+      this.products =  this.dataStorageService.getProducts();
+      
       this.tags = this.products.flatMap(product => product.tags);
       console.log(this.tags);
 

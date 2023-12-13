@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http'
 import { Product } from "../products/product.model";
-import { BehaviorSubject, map, tap } from "rxjs";
+import { BehaviorSubject, Observable, map, tap } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class DataStorageService {
     public products: Product[] = [];
     private productsBehave: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
     products$ = this.productsBehave.asObservable();
-    
+    savedTags: Product[] = [];
     constructor(private http: HttpClient) {}
 
     storeProducts(products: Product[]) {
@@ -30,9 +30,22 @@ export class DataStorageService {
         )
     }
     
+    getProducts(){
+        
+        const savedTagsString = localStorage.getItem('products');
+        if (savedTagsString !== null) {
+            this.savedTags = JSON.parse(savedTagsString) as Product[];
+           // console.log('Retrieved tags:',  this.savedTags);
+          } else {
+           // console.log('No tags found in localStorage.');
+          }
+       // console.log('My local storage save',localStorage.getItem('products'));
+        return  this.savedTags;
+      }
 
     setProducts(products: Product[]) {
-       console.log('this maybe my productss', (products as any)['-NlJ6Rio4nKjkJ8yZIUO']);
+       //console.log('my products', (products as any)['-NlJ6Rio4nKjkJ8yZIUO']);
+       localStorage.setItem('products', JSON.stringify((products as any)['-NlJ6Rio4nKjkJ8yZIUO']));
         this.productsBehave.next((products as any)['-NlJ6Rio4nKjkJ8yZIUO']);
     }
 }
