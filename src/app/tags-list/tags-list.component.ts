@@ -56,7 +56,10 @@ export class TagsListComponent implements OnInit, OnDestroy {
 
   announcer = inject(LiveAnnouncer);
 
-  constructor(private tagService: TagsListService ) {}
+  constructor(private tagService: TagsListService ) {
+    this.tags = this.tagService.getTags();
+  }
+
 
   ngOnInit(){
       this.tagChangeSub = this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
@@ -124,7 +127,7 @@ export class TagsListComponent implements OnInit, OnDestroy {
     
     // Edit existing tag    
     const index = this.tags.indexOf(tag);
-    console.log(value);
+    //console.log(value);
     if (index >= 0) {
       if( this.userInputColor == '' || this.userInputColor == '#ffffff'){
         this.userInputColor = this.tags[index].colorTag;
@@ -147,7 +150,7 @@ export class TagsListComponent implements OnInit, OnDestroy {
 
   addAllTagsToTagsManager(){
     this.tagService.manageAllTags()
-    console.log('Show my products', this.tagService.products);
+    //console.log('Show my products', this.tagService.products);
    // this.dataStorageService.products.forEach(myTags => { tags.push(...myTags.tags) } );
    // console.log('My imported tags', tags);
     //this.tagService.addTags(tags);      

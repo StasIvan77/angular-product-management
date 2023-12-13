@@ -5,12 +5,13 @@
 }
 
 .image-styles {
-    width: 400px;
-    height: 400px;
-    width: 90%;
+    
+    max-height: 300px;
+    max-width: 90%;
     height: auto;
     border-radius: 10px;
     border: 2px solid black;
+    overflow: auto;
 }
 
 .horizontal-items {
@@ -19,6 +20,7 @@
     background-color: #8C9EFF;
     border-radius: 5px;
     max-width: 750px;
+    flex-direction: column;
 
 }
 

@@ -1,4 +1,4 @@
-import { Injectable, Input } from "@angular/core";
+import { Injectable, Input, OnDestroy } from "@angular/core";
 import { Tag } from "../shared/tag.model";
 
 import { DataStorageService } from "../shared/data-storage.service";
@@ -9,13 +9,25 @@ import { ProductService } from "../products/product.service";
 @Injectable({
   providedIn: 'root'
 })
-export class TagsListService {
+export class TagsListService implements OnDestroy{
+  private productsSubscription: Subscription;
   private tagChangeSub?: Subscription;
   public tagsChanged = new Subject<Tag[]>
   private tags: Tag[] = [];
-  @Input() products: Product[] = [];
-  
+  private products: Product[] = [];
+  private tagsFromProducts: Tag[] = [];
     constructor(private  dataStorageService: DataStorageService){     
+
+      this.productsSubscription = this.dataStorageService.products$.subscribe((products: Product[] ) => {
+        console.log('Products in Tag service:', products);
+        this.products = products
+      });
+
+      this.tags = this.products.flatMap(product => product.tags);
+      console.log(this.tags);
+
+     // this.tagsFromProducts= this.products.map(product => product.tags[0]);
+      this.manageAllTags();
 
       this.tagChangeSub = this.tagsChanged.subscribe((tags: Tag[]) => {
         tags = this.tags;      
@@ -27,6 +39,8 @@ export class TagsListService {
 
 
       getTags() {
+        console.log('my tags from getTags:', this.tags.slice());
+        
         return this.tags.slice();
       }  
 
@@ -35,10 +49,10 @@ export class TagsListService {
       } 
 
       setTags() {
-        const allTags: { name: string; colorTag: string }[] = this.dataStorageService.products
-  .map(product => product.tags) // Extract tags array for each product
-  .flat() // Flatten the array of arrays into a single array
-  .filter(tag => tag.name && tag.colorTag); // Filter out tags without name or colorTag properties
+  //       const allTags: { name: string; colorTag: string }[] = this.products
+  // .map(product => product.tags) // Extract tags array for each product
+  // .flat() // Flatten the array of arrays into a single array
+  // .filter(tag => tag.name && tag.colorTag); // Filter out tags without name or colorTag properties
       }
 
       
@@ -46,39 +60,45 @@ export class TagsListService {
       tagsUpdated(){
         this.tagsChanged.next(this.tags.slice());
       }
-
-      addTags(tags: Tag[]) {       
-        this. manageAllTags();
-        console.log('Before push', this.tags.slice());
-            this.tags = [];
-            this.tags.push(...tags);
-            this.tagsChanged.next(this.tags.slice());            
-            console.log('Tags Updated via AddTags!');
-            console.log(this.tags.slice());
-        
-      }
+    
 
       manageAllTags(){
     
-        const tagsFromProducts: Tag[] = this.products.map(product => product.tags[0]);
-        console.log('this.products:', this.products);
-        console.log('My all tags: ', tagsFromProducts);
-    
-        const allTags: Tag[] = [];
-        this.products.map(product =>  product.tags.forEach(tag => {
-          const existingTag = allTags.find(t => t.name === tag.name);
-    
-            // If not found, add it to the array
-            if (!existingTag) {
-                allTags.push(new Tag(tag.name, tag.colorTag));
-            }
-      }));
-      console.log('My all tags: ', allTags);
-         // this.addAllTagsToTagsManager(allTags);
+ 
+        this.tags = this.getTags();
+       // console.log('Check before adding',this.tags);
+        this.tags.forEach(tag => {
+         // console.log('Current tag:', tag);
+        
+          if (tag === undefined || tag === null) {
+           // console.log('Skipping undefined or null tag');
+            return;
+          }
+        
+          let existingTag = this.tagsFromProducts.find((t: Tag) => t.name === tag.name);
+        
+          if (!existingTag) {
+           // console.log('Adding new tag:', tag);
+            this.tagsFromProducts.push(new Tag(tag.name, tag.colorTag));
+          } else {
+            //console.log('Tag already exists:', tag);
+          }
+        });
+        console.log('My tags after add', this.tagsFromProducts)
+
+
+         this.tags = [];
+         this.tags.push(...this.tagsFromProducts);
+         this.tagsChanged.next(this.tags.slice());            
+        console.log('Tags Updated via AddTags!',  this.tagsChanged);
+        console.log(this.tags.slice());
         }
 
 
-       
+        ngOnDestroy() {
+          // Unsubscribe to avoid memory leaks
+          this.productsSubscription.unsubscribe();
+        }
       
       
 }

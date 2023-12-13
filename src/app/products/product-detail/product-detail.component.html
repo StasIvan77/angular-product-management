@@ -23,14 +23,13 @@
             </div>            
         </div>  
         <div class="button-position-style">
-            <button mat-flat-button color="accent" [matMenuTriggerFor]="menu" class="manage-button">Manage<mat-icon>create</mat-icon></button>
+            <button mat-flat-button color="primary" [matMenuTriggerFor]="menu" class="manage-button">Manage<mat-icon>create</mat-icon></button>
             <mat-menu #menu="matMenu">        
                 <button mat-menu-item (click)="onEditProduct()">Edit</button>
                 <button mat-menu-item href="#">Delete</button>
             </mat-menu>                      
         </div>  
     </div>
-    
     
     
 </div>

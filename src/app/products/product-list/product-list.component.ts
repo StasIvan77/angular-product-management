@@ -33,6 +33,7 @@ import { ProductDetailComponent } from '../product-detail/product-detail.compone
 export class ProductListComponent implements OnInit {
   @Input() product?: Product;
   @Output() products: Product[] = [];
+  rowHeightParam :string= '8:9';
   cols?: number;
   indexOfSelectedProduct: number = 0;
   selectedProduct: boolean = true;
@@ -53,15 +54,25 @@ export class ProductListComponent implements OnInit {
   }
   private calculateCols(windowWidth: number): void {
     // Adjust the number of columns based on the window width or other conditions
-    if (windowWidth < 560) {
+    if (windowWidth < 420) {
+      this.rowHeightParam = '10:17';
+      this.cols = 1;
+    } else if   (windowWidth < 450)   {
+      this.rowHeightParam = '10:11';
+      this.cols = 1;
+    } else if   (windowWidth < 650)   {
+      this.rowHeightParam = '10:8';
       this.cols = 1;
     } else if (windowWidth < 880) {
+      this.rowHeightParam = '10:7';
       this.cols = 1;
     } else if (windowWidth < 1300) {
       this.cols = 2;
     } else if (windowWidth < 1600) {
+      this.rowHeightParam = '16:15';
       this.cols = 3; // Default number of columns
-    } else if (windowWidth > 1400) {
+    } else if (windowWidth > 1600) {
+      this.rowHeightParam = '8:9';
       this.cols = 4; // Default number of columns
     }
   }

@@ -6,6 +6,12 @@
     align-items: center;
     margin-top: 10px
   }
+
+  @media (max-width: 1000px) {
+    .tile-content {
+      margin-top: 5px; /* Adjust the margin for smaller screens */
+    }
+  }
   
   .tags-content {
     display: flex;
@@ -28,7 +34,7 @@
 
     max-height: 150px;
     border-radius: 10px;
-    height: auto;
+    
     border: 2px solid black;
   }
 
@@ -36,7 +42,7 @@
     background-color: #8C9EFF;   
     overflow: auto;
     width: 400px;
-    height: 450px;
+    height: 400px;
     border-radius: 10px;
     cursor: pointer;
     
