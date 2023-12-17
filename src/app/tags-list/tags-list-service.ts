@@ -19,13 +19,15 @@ export class TagsListService implements OnDestroy{
     constructor(private  dataStorageService: DataStorageService){     
      
       this.productsSubscription = this.dataStorageService.products$.subscribe((products: Product[] ) => {
-        console.log('Products in Tag service:', products);
+       // console.log('Products in Tag service:', products);
        // this.products = products
       });
+
+
       this.products =  this.dataStorageService.getProducts();
       
+
       this.tags = this.products.flatMap(product => product.tags);
-      console.log(this.tags);
 
      // this.tagsFromProducts= this.products.map(product => product.tags[0]);
       this.manageAllTags();
@@ -33,21 +35,22 @@ export class TagsListService implements OnDestroy{
       this.tagChangeSub = this.tagsChanged.subscribe((tags: Tag[]) => {
         tags = this.tags;      
     })
-      this.tagsUpdated();
+      this.tagsUpdated(this.tags);
       
     }
 
 
 
       getTags() {
-        console.log('my tags from getTags:', this.tags.slice());
+       // console.log('my tags from getTags:', this.tags.slice());
         
         return this.tags.slice();
       }  
-
+      
       getTag(index: number) {
         return this.tags[index];
       } 
+
 
       setTags() {
   //       const allTags: { name: string; colorTag: string }[] = this.products
@@ -58,13 +61,17 @@ export class TagsListService implements OnDestroy{
 
       
 
-      tagsUpdated(){
+      tagsUpdated(tags: Tag[]){
+        //працює криво, але апдейтит правильно, треба добавити функціонал який би глобально обновлював у всіх проудктах відопвідний тег
+        console.log('My tags before update:', this.tags);
+        console.log('My tags after update:', tags);
+        this.tags = tags;
+        //console.log(this.products);
         this.tagsChanged.next(this.tags.slice());
       }
     
 
-      manageAllTags(){
-    
+      manageAllTags(){    
  
         this.tags = this.getTags();
        // console.log('Check before adding',this.tags);
@@ -85,14 +92,13 @@ export class TagsListService implements OnDestroy{
             //console.log('Tag already exists:', tag);
           }
         });
-        console.log('My tags after add', this.tagsFromProducts)
+       // console.log('My tags after add', this.tagsFromProducts)
 
 
          this.tags = [];
          this.tags.push(...this.tagsFromProducts);
          this.tagsChanged.next(this.tags.slice());            
-        console.log('Tags Updated via AddTags!',  this.tagsChanged);
-        console.log(this.tags.slice());
+        //console.log('Tags Updated via AddTags!',  this.tagsChanged);
         }
 
 

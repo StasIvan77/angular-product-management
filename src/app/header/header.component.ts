@@ -8,9 +8,7 @@ import { AuthService } from '../auth/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DataStorageService } from '../shared/data-storage.service';
-import { ProductService } from '../products/product.service';
 import { Product } from '../products/product.model';
-import { Tag } from '../shared/tag.model';
 
 
 @Component({
@@ -52,8 +50,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onFetchProducts(){
-    this.dataStorageService.fetchProducts().subscribe();
-    this.router.navigate(['/tags-manage']);
+        this.dataStorageService.fetchProducts().subscribe();
+   // this.dataStorageService.fetchProducts();
+    //console.log(this.products)
+    this.router.navigate(['/']);
   }
 
   onSelect(feature: string) {

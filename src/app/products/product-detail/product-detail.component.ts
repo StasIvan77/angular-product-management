@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -28,36 +29,32 @@ import { Subscription } from 'rxjs';
 export class ProductDetailComponent {
   product?: Product | null;
   products: Product[] = [];
-  selectedProduct?: Product | null = null;
+  selectedProduct?: Product;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private dataStorageService: DataStorageService
     ) {  
   }
   ngOnInit(): void {
+    let productById: Product | undefined;
 
-    //some very bad code here, need help!
+    //some improves needed
     const pId = this.route.snapshot.paramMap.get('productId')
-    const getProductsParam = this.productService.onFetchProducts();
+    console.log("selected producst id:", pId);
 
-    getProductsParam.subscribe(
-      (resData: any) => {
-        //console.log(resData, ':details of a product');
-        this.products = resData['-NlJ6Rio4nKjkJ8yZIUO'];
-        const productForDetail = this.products.filter((p) => p && p.id.toString() === pId);
-      this.productService.productSelected$.subscribe((product: Product | null) => {
-      this.selectedProduct = productForDetail[0];
-      },
-      errorMessage => {
-        console.log(errorMessage, 'some error');
-      }
-    );      
-  });  
-    this.productService.getSelectedProduct();
+    //No need at least now
+    //this.products = this.dataStorageService.getProducts();  
+    
+    if(pId) {
+      productById = this.dataStorageService.getProductById(parseInt(pId));
+    }
+    this.selectedProduct = productById;   
   }   
 
+  
   onEditProduct() {
     this.router.navigate(['edit'], { relativeTo: this.route });
   }

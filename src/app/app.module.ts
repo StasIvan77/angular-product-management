@@ -17,6 +17,7 @@ import { ProductsResolverService } from './products/products-resolver.service';
 import { TagsListService } from './tags-list/tags-list-service';
 import { AppRoutingModule } from './app-routing.module';
 import { DataStorageService } from './shared/data-storage.service';
+import { TagsEditComponent } from './tags-list/tags-edit/tags-edit/tags-edit.component';
 
 
 
@@ -26,7 +27,8 @@ const appRoutes: Routes =[
 
 @NgModule({
   declarations: [
-    AppComponent         
+    AppComponent,
+    TagsEditComponent         
   ],
   imports: [
     BrowserModule,

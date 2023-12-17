@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Product } from '../product.model';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
@@ -10,6 +10,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 
 
@@ -42,9 +43,11 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataStorageService: DataStorageService
     ) {
-    this.calculateCols(window.innerWidth)
+    this.calculateCols(window.innerWidth);
+
   }
 
   @HostListener('window:resize', ['$event'])
@@ -76,19 +79,12 @@ export class ProductListComponent implements OnInit {
       this.cols = 4; // Default number of columns
     }
   }
-  ngOnInit() {
-    const getProducts = this.productService.onFetchProducts();
+  
+ 
+  async ngOnInit() {
 
-    getProducts.subscribe(
-      (resData: any) => {
-        this.products = resData['-NlJ6Rio4nKjkJ8yZIUO'].filter((p: Product) => !!p);
-        // this.productService.getProducts(resData);
-      },
-      errorMessage => {
-        console.log(errorMessage, 'Some error on fetching products array');
-      }
-    );
-    
+    //добавити перевірку чи пусті продукти
+    this.productService.onFetchProducts().subscribe(response => this.products = response );
   }
 
   OnSelected(product: Product) {  

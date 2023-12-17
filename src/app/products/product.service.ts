@@ -13,7 +13,8 @@ import { DataStorageService } from "../shared/data-storage.service";
 export class ProductService {
     productsChanged = new Subject<Product[]>();
     @Output() productSelected = new Subject<Product>();
-    private sharedProducts$: Observable<Product[]>;
+
+    //private sharedProducts$: Observable<Product[]>;
 
     private productSelectedSource = new BehaviorSubject<Product | null>(null);
     productSelected$ = this.productSelectedSource.asObservable();
@@ -25,9 +26,12 @@ export class ProductService {
 
  
       constructor(private dataStorageService: DataStorageService){
-      this.sharedProducts$ = this.onFetchProducts();
+      //this.sharedProducts$ = this.onFetchProducts();
+      
       }
 
+
+      //тут треба змінити код, так як вже в dataStorageService.getProducts() є мої продукти
       setProducts(products: Product[]) {        
         // @ts-ignore
         this.products = products['-NlJ6Rio4nKjkJ8yZIUO'];
@@ -58,6 +62,6 @@ export class ProductService {
       }
 
       onFetchProducts(){  
-        return this.dataStorageService.fetchProducts();
+       return this.dataStorageService.fetchProducts();
       }      
 }

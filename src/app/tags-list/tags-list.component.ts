@@ -65,9 +65,7 @@ export class TagsListComponent implements OnInit, OnDestroy {
       this.tagChangeSub = this.tagService.tagsChanged.subscribe((tags: Tag[]) => {
         tags = this.tags;  
         console.log("tags", tags);    
-    })
-    
-
+    })   
   } 
 
  
@@ -77,7 +75,8 @@ export class TagsListComponent implements OnInit, OnDestroy {
       this.colorPicker.openDialog(); // Open the color picker dialog
     }
   }
-
+// перенести весь функціонал редагування тегів у новий компонент tags-edit і викликати блоком за допомогою селектора компонента,
+// пізніше коли буду редаговувати компоненти в product-details щоб міг повторно викликати цей компонент із масивов тегів відповідного product
   addTag(event: MatChipInputEvent): void {
 
     const value = this.userInputValue !== null && this.userInputValue !== undefined ?  event.value : 'New Tag';    
@@ -93,7 +92,7 @@ export class TagsListComponent implements OnInit, OnDestroy {
           event.chipInput!.clear();
         } else {          
           this.tags.push(new Tag(value, this.userInputColor));
-          this.tagService.tagsUpdated();          
+          this.tagService.tagsUpdated(this.tags);          
         }        
         
         this.formControl.setValue(this.tags.map(tags => tags.name)); // Update the form control value
@@ -111,8 +110,10 @@ export class TagsListComponent implements OnInit, OnDestroy {
 
     if (index >= 0) {
       this.tags.splice(index, 1);
+      this.tagService.tagsUpdated(this.tags);
       this.announcer.announce(`Removed ${tag}`);
     }    
+
   }
     //
    edit(tag: Tag, event: MatChipEditedEvent) {    
