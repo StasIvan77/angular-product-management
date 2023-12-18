@@ -1,0 +1,30 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.styleOfColor{
+    height: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px; 
+    width: 120px;   
+    cursor: pointer;
+   
+  }
+  .styleOfColor::placeholder {
+   
+    text-align: center;
+    display: none;
+    color: black;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    
+  }

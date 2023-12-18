@@ -37,7 +37,8 @@ export class DataStorageService {
     //тут добавити getProductById який повертає суто по айдішці product З локально збережених продуктів
     getProductById(productId: number){
         //console.log(this.products)
-        if (this.products && this.products.length === 0) {
+        if (this.products && this.products.length === 0) {       
+
             this.products = this.getProducts();             
           }
        return this.products.find((product: Product) => product.id === productId);

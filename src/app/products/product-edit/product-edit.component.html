@@ -1,7 +1,7 @@
 <div>
     <div>
         
-        <form>
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
             <div class="button-add-style" >
                 <button mat-raised-button color="primary" type="submit" >Save</button>
                 <button mat-raised-button color="warn" >Cancel</button>
@@ -9,8 +9,40 @@
             <div class="form-group">
                 <mat-form-field>
                     <mat-label>Product name</mat-label>
-                    <input matInput>
+                    <input id="name" class="form-control" matInput formControlName="name">
                 </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <textarea id="description" class="form-control" matInput formControlName="description"></textarea>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Image url</mat-label>
+                    <input id="imagePath" class="form-control" matInput formControlName="imagePath">
+                </mat-form-field>
+                <img src="" class="img-resonsive">
+                <mat-form-field>
+                    <mat-label>Price</mat-label>
+                    <input id="price" class="form-control" matInput formControlName="price">
+                </mat-form-field>
+                <div class="tags-padding">
+                    <div class="tags-content" *ngFor="let chip of selectedProduct?.tags; let i = index" id="tags" >
+                        <input
+                        class="styleOfColor"
+                        readonly
+                        [placeholder]="chip!.name"
+                        [(colorPicker)]="chip!.colorTag"
+                        [style.background]="chip!.colorTag"
+                        />
+                        <mat-form-field>
+                            <mat-label>Tag name</mat-label>
+                            <input id="name" class="form-control" matInput [formControlName]="chip!.name">
+                        </mat-form-field>
+                        
+                    </div>    
+                                    
+                    <button mat-raised-button color="primary" type="submit" (click)="onAddProduct">Add tag</button>    
+
+                </div>
             </div>
 
         </form>

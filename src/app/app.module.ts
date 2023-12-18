@@ -18,6 +18,7 @@ import { TagsListService } from './tags-list/tags-list-service';
 import { AppRoutingModule } from './app-routing.module';
 import { DataStorageService } from './shared/data-storage.service';
 import { TagsEditComponent } from './tags-list/tags-edit/tags-edit/tags-edit.component';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
 
 
 
@@ -42,7 +43,9 @@ const appRoutes: Routes =[
     RouterModule.forRoot(appRoutes),
     ProductDetailComponent,
     TagsListComponent,
-    AppRoutingModule
+    AppRoutingModule,
+    ProductEditComponent
+    
   ],
   exports: [
     RouterModule
