@@ -27,16 +27,19 @@ export class ProductService {
  
       constructor(private dataStorageService: DataStorageService){
       //this.sharedProducts$ = this.onFetchProducts();
-      
+      // setTimeout(() => {
+      //   this.products = this.getProducts();
+      // }, 3000);
+        
       }
 
 
       //тут треба змінити код, так як вже в dataStorageService.getProducts() є мої продукти
       setProducts(products: Product[]) {        
-        // @ts-ignore
-        this.products = products['-NlJ6Rio4nKjkJ8yZIUO'];
-        this.productsChanged.next(this.products);
-        console.log(this.products);
+     
+        this.products = products;
+        this.productsChanged.next(this.products.slice());
+        console.log('SetedProducts() from product Service:', this.products);
         this.setProductsSubject(this.products);
       }
 
@@ -46,7 +49,7 @@ export class ProductService {
       }
 
       getProducts(): Product[] {
-        console.log('this.getProducts getpProducts():', this.products);
+        console.log('My products in Product Service getProducts():', this.products);
         return this.products;
       }
      

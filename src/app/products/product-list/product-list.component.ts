@@ -81,10 +81,33 @@ export class ProductListComponent implements OnInit {
   }
   
  
-  async ngOnInit() {
+  ngOnInit() {
 
     //добавити перевірку чи пусті продукти
-    this.productService.onFetchProducts().subscribe(response => this.products = response );
+    // this.productService.onFetchProducts().subscribe(response => this.productService.setProducts(response));
+    // setTimeout(() => {
+    //   this.products = this.productService.getProducts();
+    //   console.log('My products from service', this.products)
+    //     }, 3000);  
+        
+        
+         // Check if products are already available before fetching
+    if (!this.productService.getProducts().length) {
+      this.productService.onFetchProducts().subscribe((response) => {
+        this.productService.setProducts(response);
+       // this.products = response;
+        setTimeout(() => {
+          this.handleProducts();
+         console.log('My products from service', this.products)
+            }, 3000); 
+      });
+    } else {
+      setTimeout(() => {
+        //never handling because alwasy losing instance of getProducts
+        this.handleProducts();
+       console.log('My products from service 2', this.products)
+          }, 3000);       
+    }    
   }
 
   OnSelected(product: Product) {  
@@ -96,6 +119,11 @@ export class ProductListComponent implements OnInit {
     this.productService.setSelectedProduct(product);        
     this.router.navigate([`/details/${product.id}`]);
       
+  }
+
+  private handleProducts() {
+    this.products = this.productService.getProducts();
+    console.log('My products from service', this.products);
   }
 
   getSelectedProduct(product: Product){

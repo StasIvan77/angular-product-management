@@ -51,8 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onFetchProducts(){
         this.dataStorageService.fetchProducts().subscribe();
-   // this.dataStorageService.fetchProducts();
-    //console.log(this.products)
+   
     this.router.navigate(['/']);
   }
 

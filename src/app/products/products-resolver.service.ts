@@ -9,11 +9,14 @@ export class ProductsResolverService implements Resolve<Product[]>{
     constructor(private dataStorageService: DataStorageService, private productsService: ProductService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        // const products = this.productsService.getProducts();
+        const products = this.productsService.getProducts();
 
-    // if (products?.length === 0) {
-    //   // return this.dataStorageService.fetchProducts();
-    // }
-    return [];
-    }
+        if (products.length === 0) {
+          return this.dataStorageService.fetchProducts();
+        } else {
+          return products;
+        }
+      }
 }
+    
+    
